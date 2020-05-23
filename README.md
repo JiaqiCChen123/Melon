@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # 2020-product-analytics-group-project-melon
 Create music through AI fed with lyrics.
 
@@ -15,6 +16,8 @@ Create music through AI fed with lyrics.
 
 5. Run the web server!
 =======
+=======
+>>>>>>> e5c41cf93b317b20b657e5ea4b003539c7ce8d69
 # Melon - Create music through AI fed with lyrics.
 
 ![](images/main.png)
@@ -62,4 +65,7 @@ If you want to run the whole pipeline on your own computer, plase follow the ste
 5. Run the web server!
 
 After cloning the github, you can refer to the document (displayed in webpage) in docs/build/html/index.html.
+<<<<<<< HEAD
+>>>>>>> e5c41cf93b317b20b657e5ea4b003539c7ce8d69
+=======
 >>>>>>> e5c41cf93b317b20b657e5ea4b003539c7ce8d69

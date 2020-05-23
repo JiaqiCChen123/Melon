@@ -6,7 +6,7 @@ Melon is an AI melody generator platform. By feeding  original text into the lyr
 
 ## Introduction
 
-We train a GAN model based on LSTM with 10000+ paired midi files and lyrics to learn the correlations between lyrics and the rhythm, punctuation and emotions of the music. We also add multiple keys and instruments options to customize melody according to users' needs.
+We train a conditional-GAN model based on LSTM with 10000+ paired midi files and lyrics to learn the correlations between lyrics and the rhythm, punctuation and emotions of the music. We also add multiple keys and instruments options to customize melody according to users' needs.
 
 We want to build a easy-to-use melody generation platform to help those intimidated by the difficulty of music-making to have fun in generating original melodies, and inspire those who are interested in writing songs to further explore their potential in producing quality music.
 

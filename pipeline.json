@@ -1,0 +1,69 @@
+{
+    "pipeline": {
+        "name": "melon_pipeline",
+        "version": 1,
+        "roleArn": "arn:aws:iam::374226464461:role/service-role/AWSCodePipelineServiceRole-us-west-2-MSDS603Week1",
+        "artifactStore": {
+            "type": "S3",
+            "location": "melon-bucket-1"
+        },
+        "stages": [
+            {
+                "name": "Source",
+                "actions": [
+                    {
+                        "name" : "GitHubSource",
+                        "inputArtifacts": [],
+                        "actionTypeId": {
+                            "version": "1",
+                            "owner": "ThirdParty",
+                            "category": "Source",
+                            "provider": "GitHub"
+                        },
+                        "outputArtifacts": [
+                            {
+                                "name": "SourceArtifact"
+                            }
+                        ],
+                        "runOrder": 1,
+                        "configuration": {
+                            "Owner": "MSDS698",
+                            "Repo": "2020-product-analytics-group-project-melon",
+                            "PollForSourceChanges": "true",
+                            "Branch": "master",
+                            "OAuthToken": "7e148a2717dd76bbe5a5d868ec4fc459a318b60c"
+                        }
+                    }
+                ]
+            },
+
+            {
+              "name": "Deploy",
+              "actions": [
+                {
+                  "inputArtifacts": [
+                    {
+                      "name": "SourceArtifact"
+                    }
+                  ],
+                  "name": "CodeDeploy",
+                  "actionTypeId": {
+                    "category": "Deploy",
+                    "owner": "AWS",
+                    "version": "1",
+                    "provider": "ElasticBeanstalk"
+                  },
+                  "outputArtifacts": [
+
+                        ],
+                  "configuration": {
+                    "ApplicationName": "melon",
+                    "EnvironmentName": "melon-app"
+                  },
+                  "runOrder": 2
+                }
+              ]
+            }
+        ]
+    }
+}

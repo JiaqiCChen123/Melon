@@ -1,0 +1,72 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Search
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+{% block content %}
+  {% include 'flash.html' %}
+	 <div class="container container-fluid">
+	 	<h1>Find some lyrics you like!</h1>
+	 	<form action="{{ url_for('search') }}" method="post">
+	 	  <div class="form-group">
+          <label for="singer">Singer: </label>
+          <input type="text" class="form-control" name="singer" id="singer" aria-describedby="singerHelp" placeholder="" value="{{singer}}">
+          <small id="singerHelp" class="form-text text-muted">Try: Taylor Swift</small>
+          </div>
+
+          <div class="form-group">
+          <label for="song">Song: </label>
+          <input type="text" class="form-control" name="song" id="song" aria-describedby="songHelp" placeholder="" value="{{song}}">
+          <small id="songHelp" class="form-text text-muted">Try: Lover</small>
+          </div>
+<!-- add two submit buttons here. One for searching lyrics and input for submit input lyrics -->
+          <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='search' ></input>
+
+          {% if lyrics %}
+          <div>
+          <textarea class="materialize-textarea">
+            {% for line in lyrics %}
+          	   {{line}}
+          	{% endfor %}
+           </textarea>
+          </div>
+          {% endif %}
+
+          </form>
+
+     {% include 'flash_input_lyrics.html' %}
+      <form action="{{ url_for('search') }}" method="post">
+          <div class="form-group">
+          <br>
+          <label for="input_lyrics">Put your lyrics here!</label>
+          <input type='text' class="form-control" id="input_lyrics" name='input_lyrics' rows="3" value="{{input_lyrics}}">
+          <small id="lyricsHelp" class="form-text text-muted">Example: Let it go, let it go, can't hold it back anymore</small>
+          </div>
+          <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='Confirm your lyrics' ></input>
+        </form>
+
+          <!-- <button type="submit" class="btn btn-primary" id="sub-button">Generate melody!</button> -->
+          <p>
+          <div id="browse_app">
+          <a class="btn btn-primary" href="/generate">Generate melody!</a>
+          </div>
+          </p>
+
+	 </div>
+{% endblock %}

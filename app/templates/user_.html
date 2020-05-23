@@ -1,0 +1,243 @@
+<!--<html>-->
+<!--<div class="container">-->
+<!--    <form method="POST">-->
+<!--        <h2>Welcome {{user.username}} !</h2>-->
+
+<!--    </form>-->
+<!--    <br/>-->
+<!--</div>-->
+
+<!--<div>-->
+<!--    Back to homepage-->
+<!--    <a href="/index">Home</a>-->
+<!--</div>-->
+<!--<div>-->
+<!--    Want to logout?-->
+<!--    <a href="/logout">Logout</a>-->
+<!--</div>-->
+<!--</html>-->
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.navbar-brand img
+{
+  height: 30px;
+  margin-top: -10%;
+}
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  z-index: -2;
+  fill-opacity: 0.5;
+}
+.waves > svg > path:first-of-type {
+  fill: #b4e9bb;
+}
+.waves > svg > path:last-of-type {
+  fill: #9bdda4;
+}
+.page-title{
+  font-size: 20px;
+  font-weight: 900;
+  margin: var(--spacing) 0;
+  letter-spacing: 2px;
+  flex: 1;
+	font-family: 'Montserrat', sans-serif;
+	color: #9bdda4;
+	text-align: center;
+  overflow: hidden;
+  margin-top: 50px;
+}
+#sub-button
+{
+  position: relative;
+	top: 50%;
+  left: 30%;
+  box-shadow: none;
+	padding: 10px 50px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+}
+
+.profile-container{
+  position: relative;
+  top: 10%;
+  left: 20%;
+  /* margin-left: -150px; */
+  margin-bottom: 100px;
+  height: 200px;
+  width: 400px;
+  /* background-color: red; */
+}
+
+.search-lyrics{
+  position: relative;
+  top: 60%;
+  left: 20%;
+  /* margin-left: -150px; */
+  margin-bottom: 100px;
+}
+
+/* ----lyrics---- */
+#lyrics
+{
+	background: white;
+	padding-bottom: 100px;
+  padding-top: 100px;
+}
+
+.lyrics-container{
+	position: relative;
+	width: 500px;
+	height: 100px;
+	top: 50%;
+	left: 50%;
+	/* margin-top: -200px;  */
+	margin-left: -250px;
+	background-color: #ffbd66;
+  }
+  .lyrics-container textarea {
+	background: "textarea-bg.png";
+	border: none; 
+	outline: none;
+    resize: none;
+	font-size: 20px; 
+	font-family: 'Montserrat', sans-serif;
+	color: darkslategray;
+	text-align: center;
+	overflow: hidden;
+	width: 500px;
+	height: 100px;
+  }
+  
+  /* #lyrics-container a {
+	border: none; 
+	outline: none;
+  resize: none;
+	font-size: 16px; 
+	font-family: 'Montserrat', sans-serif; 
+	color: darkslategray;
+	text-align: center;
+	overflow: hidden;
+	width: 200px;
+  height: 100px;
+  position: relative;
+  left: 25%;
+  } */
+
+  #lyrics-container .btn-primary
+{
+  box-shadow: none;
+	padding: 10px 20px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+  position: relative;
+  left: 20%;
+}
+  .reg-buttons{
+	position: relative;
+	width: 500px;
+	height: 100px;
+	top: 50%;
+  left: 50%;
+	/* margin-top: -200px;  */
+	margin-left: -200px;
+  }
+
+  #lyrics .btn-primary
+{
+  box-shadow: none;
+	padding: 20px 40px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+}
+
+
+</style>
+
+<body>
+  
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="index"><img src="static/images/melon-logo1.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/index"><span class="glyphicon glyphicon-home"></span> Home</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+      </li>
+    <li class="nav-item">
+        <a class="nav-link" href="/profile"><span class=""></span> | Edit Profile</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/search"><span class=""></span> | Search Lyrics</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <!-- wave -->
+    <div class="waves">
+      <svg viewbox="0 0 100 20">
+        <path opacity="0.5" d="M0 25V10C35.5 -10.5 61.5 6.5 100 10V25H0Z" fill="black"/>
+        <path d="M0 25V7C20 10.3333 38.3333 10.3333 55 7C71.6667 3.66667 86.6667 3.33333 100 6V25H0Z" fill="#FF0000" fill-opacity="0.5"/>
+      </svg>
+    </div>
+  
+<div class="profile-container">
+ <h2 class="page-title">Welcome back, {{user.username}} !</h2>
+  <hr>
+    <h3 class="page-title">User Profile</h3>
+ <img src="{{ image_file }}"  class="img-thumbnail" alt="Cinque Terre" height=25%  width=25% align="right">
+    {% if profile%}
+    <p>Gender: {{profile.gender}}</p>
+    <p>Age: {{profile.age}}</p>
+    <p>City: {{profile.city}}</p>
+    {% else%}
+    <p>You don't have any info.</p>
+    {% endif %}
+  <hr>
+</div>
+
+
+<!-- lyrics -->
+<div id="lyrics">
+  <div class="search-lyrics">
+    <a href="profile" id="lyricsButton" class="btn btn-primary">EDIT PROFILE</a>
+    <a href="search" id="lyricsButton" class="btn btn-primary">SEARCH LYRICS</a>
+    <a href="generate" id="lyricsButton" class="btn btn-primary">GENERATE SONG</a>
+  </div>
+  <!-- <div class="lyrics-container" id="lyrics-container">
+      <textarea name="" id="" cols="43" rows="4" placeholder="Input your lyrics here..."></textarea>
+       <a href="#main" id="lyricsButton" class="btn btn-primary">GENERATE SONG</a> -->
+
+  <!-- <img src="static/images/play.png" class="play-btn"> -->
+      </div>
+</div>
+</div>
+</body>

@@ -1,0 +1,17 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages == 'Successfully store the lyrics!' %}
+        <div class="alert alert-success" role='alert'>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>      
+    {% endif %}
+    {% if messages == 'Please enter the lyrics you like' %}
+        <div class="alert alert-danger" role='alert'>
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div> 
+    {% endif %}
+
+{% endwith %}

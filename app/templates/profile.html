@@ -1,0 +1,45 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Register
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'ga.html' %}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Material icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+{% block content %}
+<div class="login-page container container-fluid">
+  {% include 'flash.html' %}
+  <div class="form">
+    <form action="" method="post" class="form" role="form" enctype="multipart/form-data">
+      <h2>Edit Profile</h2>
+        {{ form.csrf_token() }}   
+        {{ wtf.form_field(form.gender, class='form-control', placeholder='Gender') }}
+        {{ wtf.form_field(form.age, class='form-control', placeholder='Age') }}
+        {{ wtf.form_field(form.city, class='form-control', placeholder='City') }}
+        {{ wtf.form_field(form.image_file, class="form-control-file", placeholder='Image') }}
+	    {% if form.image_file.errors %}
+	        {% for error in form.image_file.errors %}
+	            <span class="text-danger">{{ error }}</span></br>
+	        {% endfor %}
+	    {% endif %}
+        <button type="submit" class="btn btn-primary" id="sub-button">Save</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

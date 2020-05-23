@@ -1,0 +1,386 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}
+Lyrics
+{% endblock %}
+
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+
+{% block head %}
+    {{super()}}
+    {% include 'ga.html' %}
+    {% include 'style.html' %}
+<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+  <script src="https://kit.fontawesome.com/139e8171f0.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<!--  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>-->
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script src="https://unpkg.com/wavesurfer.js"></script>
+    <style type="text/css">
+
+  body {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  #section1 {padding:50px;height:100vh; background-color: white;}
+  #section2 {padding:50px;height:100vh;color: #fff; background-color: white;}
+  #section3 {padding:50px;height:100vh;color: #fff; background-color: #ff9800;}
+  #scroll-arrow1 { position:relative; top: 3%; left:50%;}
+  .section2-container {position: relative; left: 10%; top: 10%; }
+  .btn-instrument:hover {font-size:20px;}
+  .btn-key {color:#5EC248;}
+  .btn-key:hover {font-size:20px; color:#00A462;}
+
+    .materialize-textarea {
+      width: 100%;
+      margin-left: 0wh;
+      margin-right: 0wh;
+      margin-top: 3vh;
+      text-align:center;
+      font-size: 0.9rem;
+      height: 100px;
+      max-height: 100px;  
+    }
+
+    .textarea::-webkit-scrollbar {
+      width: 12px;
+      background-color: #F5F5F5; }
+
+    .textarea::-webkit-scrollbar-thumb {
+      border-radius: 1px;
+      background-color: #4285F4; }
+
+    .main-title{
+    margin-left: 6em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    }
+
+    .btn-secondary{
+    text-align:center;
+    }
+    .loading_container {display: none;}
+    .loading_div {display: flex;  justify-content: center;  align-items: center;  min-height: 100vh;}
+    .loading {  max-width: 50%;  line-height: 1.4;  font-size: 1.6rem;  font-weight: bold;  text-align: center;}
+    .loading__sub {  font-weight: normal;  font-size: 1.5rem;  color: rgba(0,0,0 ,1);  margin: 0.6rem 0 2rem 0;  display: block; text-align: right;}
+    .loading__main {  font-weight: normal;  font-size: 1.5rem;  color: rgba(0,0,0 ,1);  margin: 0.6rem 0 2rem 0;  display: block;}
+    .loading__anim {  width: 70px;  height: 70px;  display: inline-block;  border: 5px solid rgba(189,189,189 ,0.25);  border-left-color: rgba(3,155,229 ,1);  border-top-color: rgba(3,155,229 ,1);  border-radius: 50%; animation: rotate 600ms infinite linear;}
+    @keyframes rotate { to {  transform: rotate(1turn) }}
+    </style>
+
+
+{% endblock %}
+
+
+
+
+{% block content %}
+    {% include 'flash.html' %}
+
+<!-- SECTION 1 -->
+
+  <div id="section1" class="container-fluid page-section" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+
+      <h1>Step 1: Get Lyrics</h1>
+
+<!--     <h3 class="main-title">Search Lyrics</h3> -->
+      <br><br>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="card" style="height:29rem;width: 29rem;font-size: 0.8rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">You May Want to Search</h5>
+                      <table class="table">
+                          <thead>
+                            <tr>
+                              <th scope="col">Song</th>
+                              <th scope="col">Author</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% for ele in contents %}
+                            <tr id="{{ ele[0] }}" title="{{ ele[1] }}" onclick="reply_click(this.id, this.title)">
+                              <td>
+                                  {{ ele[0] }}
+                              </td>
+                              <td>{{ ele[1] }}</td>
+                            </tr>
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                  </div>
+                </div>
+            </div>
+
+            <div class="col-md-7">
+                <form action="{{ url_for('search') }}" method="post">
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">Song and Author</span>
+                  </div>
+                  <input type="text" name="song" id="song" aria-label="Song" class="form-control" value="{{song}}">
+                  <input type="text" name="singer" id="singer" aria-label="Author" class="form-control" value="{{singer}}">
+                    <input type="submit" class="btn btn-success" id="sub-button" name='submit' value='search' onclick = "gtag('event','click',{'event_category':'search','event_label':'search_lyrics',value:10})">
+                </div>
+                <div>
+                <textarea class="materialize-textarea" rows = 5>
+                    {% for line in lyrics %}
+                       {{line}}
+                    {% endfor %}
+               </textarea>
+                </div>
+                </form>
+
+
+                <form action="{{ url_for('search') }}" method="post">
+                <br>
+                <label for="input_lyrics">Put your lyrics here!</label>
+                 <small id="lyricsHelp" class="form-text text-muted">Please use a period ' . ' to finish each sentence of your lyrics :D <br>Example: Let it go. Let it go. Can't hold it back anymore.</small>
+                <textarea class="materialize-textarea" id="input_lyrics" name='input_lyrics' rows = 5 value="{{input_lyrics}}"></textarea>
+                  <input type="submit" class="btn btn-success" id="sub-button" name='submit' value='Confirm your lyrics' onclick = "gtag('event','click',{'event_category':'confirm','event_label':'confirm_lyrics',value:10})">
+                </form>
+
+                <p>
+                <div id="browse_app" class="scroll-arrow">
+<!--                 <a class="btn btn-primary" href="/generate">Generate melody!</a>
+ -->
+                <a class="btn btn-warning" href="#section2" onclick = "gtag('event','click',{'event_category':'jump','event_label':'next_step',value:10})">Next Step  <i class="fas fa-arrow-down"></i></a>
+                </div>
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+<!--     <div class="scroll-arrow" id="scroll-arrow1">
+      <a href="#section2"><i class="fas fa-arrow-down" style="font-size: 1em; color: pink;"></i></a>
+    </div> -->
+  </div>
+
+<!-- SECTION 2 -->
+  <div id="section2" class="container-fluid page-section">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/e3cdd0fd88.js" crossorigin="anonymous"></script>
+    <div class="loading_container" id="loading_container">
+      <div class="loading_div">
+        <div class="loading">
+          <img src="https://purepng.com/public/uploads/medium/purepng.com-music-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596085a1vfa.png" style="height: 50px;">
+          <span class="loading__main"> Music and rhythm find their way into the secret places of the soul </span>
+          <span class="loading__sub"> --- Plato </span>
+          <span class="loading__anim"></span>
+        </div>
+      </div>
+    </div>
+    <h1 data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine" style="color:black">Step 2: Choose Your Style</h1>
+
+             <div class="container container-fluid section2-container" id="generate_container" data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">
+
+                <form action="{{ url_for('generate') }}" method="post">
+
+                    <label style="font-size:25px;color:black;">Choose a key:</label>
+                    <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_c',value:10})">
+                        <input type="radio" name="key"  autocomplete="off" value="C" aria-pressed="true" data-toggle="button"> C
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_d',value:10})">
+                        <input type="radio" name="key"  autocomplete="off" value="D" aria-pressed="true" data-toggle="button"> D
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_e',value:10})">
+                        <input type="radio" name="key"  autocomplete="off" value="E" aria-pressed="true" data-toggle="button"> E
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_f',value:10})">
+                        <input type="radio" name="key" autocomplete="off" value="F" aria-pressed="true" data-toggle="button"> F
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_g',value:10})">
+                        <input type="radio" name="key"  autocomplete="off" value="G" aria-pressed="true" data-toggle="button"> G
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_a',value:10})">
+                        <input type="radio" name="key"  autocomplete="off" value="A" aria-pressed="true" data-toggle="button"> A
+                      </label>
+                      <label class="btn btn-light btn-key" style="font-size: 50px;" onclick = "gtag('event','click',{'event_category':'style','event_label':'key_b',value:10})">
+                        <input type="radio" name="key" autocomplete="off" value="B" aria-pressed="true" data-toggle="button"> B
+                      </label>
+                    </div>
+
+                      {% if target_key %}
+                        <label>You choose target key: {{target_key}}</label>
+                      {% endif %}
+
+
+                      <br>
+                      <br>
+                      <br>
+                      <label style="font-size:25px;color:black;">Choose an instrument:</label>
+                      <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+                      <label class="btn btn-light btn-instrument" onclick = "gtag('event','click',{'event_category':'style','event_label':'instrument_piano',value:10})">Piano
+                        <input type="radio" name="instrument"  autocomplete="off" value="Piano" ><img src='static/images/piano-icon.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument" onclick = "gtag('event','click',{'event_category':'style','event_label':'instrument_guitar',value:10})">Guitar
+                        <input type="radio" name="instrument"  autocomplete="off" value="Guitar" ><img src='static/images/guitar-icon.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument" onclick = "gtag('event','click',{'event_category':'style','event_label':'instrument_bass',value:10})">Bass
+                        <input type="radio" name="instrument"  autocomplete="off" value="Bass" ><img src='static/images/bass-icon.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument" onclick = "gtag('event','click',{'event_category':'style','event_label':'instrument_violin',value:10})">Viola
+                        <input type="radio" name="instrument"  autocomplete="off" value="Viola" ><img src='static/images/viola-icon.png' height="80" width="80">
+                      </label>
+<!--                       <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Piano" ><img src='static/images/keyboard.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Guitar"><img src='static/images/guitar.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Bass"><img src='static/images/bass.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument" autocomplete="off" value="Drum"><img src='static/images/drum.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Violin"><img src='static/images/violin.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Trumpet"><img src='static/images/trumpet.png' height="80" width="80">
+                      </label>
+                      <label class="btn btn-light btn-instrument">
+                        <input type="radio" name="instrument" autocomplete="off" value="Saxophone"><img src='static/images/saxophone.png' height="64" width="76">
+                      </label> -->
+                       </div>
+
+                      {% if instrument %}
+                        <label>You choose target instrument: {{instrument}}</label>
+                      {% endif %}
+
+                      <br>
+                      <br>
+                      <br>
+                      <label style="font-size:25px;color:black;">Enter your BPM (speed/pace):</label>
+
+                      <br>
+                      <label id="BPMhelp" class="form-text text-muted">
+                      Example: 100</label>
+                      <div>
+                          <input type="text" class="form-control" name='BPM' value="{{BPM}}" id='BPM' style="width: 400px;"> 
+                      </div>
+                      <small style="color: grey"><strong style="color:orange"> * Typical BPM * </strong>
+                      Pop: 100~130; Jazz: 120-125; Hip-hop: 85-115; Rock: 110-140; R&B: 60-80;</small>
+                     
+                      <br>
+
+                      
+                      <br>
+<!--                     <textarea class="materialize-textarea" name='BPM' value="{{BPM}}" id='BPM' row=1></textarea> -->
+
+                    <input type="submit" class="btn btn-success" id="sub-button" name='submit' value='Generate!' onclick='generateMusic()'></input>
+                </form>
+
+                {% if syllables %}
+                <div>
+                    <audio controls>
+                      <source src="static/music/final_output.mp3" type="audio/mp3">
+                    </audio>
+                </div>
+                <div id="waveform"></div>
+                {% endif %}
+
+                {% block scripts_generate %}
+                <script type="text/javascript">
+                  function init() {
+                    document.getElementById("loading_container").style.display = 'none';
+                  }
+
+                  function generateMusic() {
+                    // alert("Let's begin generating!");
+                    document.getElementById("generate_container").style.display = 'none';
+                    document.getElementById("loading_container").style.display = 'block';
+                    // wavesurfer.load('static/music/final_output.mp3');
+                  }
+                </script>
+                {% endblock %}
+
+
+            </div>
+
+<!--     <div class="scroll-arrow">
+      <a href="#section3"><i class="fas fa-arrow-down" style="font-size: 2em; color: white;"></i></a>
+    </div>
+  </div> -->
+
+
+
+<!--   <div id="section3" class="container-fluid page-section">
+    <h1 data-aos="fade-right" data-aos-offset="300" data-aos-easing="ease-in-sine">Melody</h1>
+
+    <div class="scroll-arrow">
+      <a href="#section1"><i class="fas fa-arrow-up" style="font-size: 2em; color: white;"></i></a>
+    </div>
+  </div> -->
+
+
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+
+// init AOS
+AOS.init();
+
+$(document).ready(function(){
+
+  $('body').scrollspy({target: ".page-section", offset: 50});
+  $(".scroll-arrow a").on('click', function(event) {
+    // Make sure this.hash has a value before overriding default behavior
+    if (this.hash !== "") {
+      // Prevent default anchor click behavior
+      event.preventDefault();
+      // Store hash
+      var hash = this.hash;
+      // Using jQuery's animate() method to add smooth page scroll
+      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+      $('html, body').animate({
+        scrollTop: $(hash).offset().top
+      }, 800, function(){
+        // Add hash (#) to URL when done scrolling (default click behavior)
+        window.location.hash = hash;
+      });
+    }  // End if
+  });
+});
+
+
+
+function reply_click(clicked_id,clicked_title)
+{
+    document.getElementById("song").value = clicked_id;
+    document.getElementById("singer").value = clicked_title;
+    //refresh the window
+    posting.done(function(){
+       window.location.reload()
+    })
+
+}
+// function generateMusic() {
+//     // alert("Let's begin generating!");
+//     document.getElementById("generate_container").style.display = 'none';
+//     document.getElementById("loading_container").style.display = 'block';
+//     // wavesurfer.load('static/music/final_output.mp3');
+//   }
+</script>
+{% endblock %}

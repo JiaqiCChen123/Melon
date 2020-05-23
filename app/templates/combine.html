@@ -1,0 +1,42 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Search
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+{% block content %}
+  {% include 'flash.html' %}
+<html>
+ <div>
+ 	<h1>Audio Combine</h1>
+ 	<form action="{{ url_for('combine') }}" method="POST">
+      <div class="form-group">
+      <input type="text" class="form-control" name="song" id="song" aria-describedby="songHelp" placeholder="" value="{{song}}">
+  		</div>
+      </form>
+
+      <form action="{{ url_for('combine') }}" method="POST">
+      	<div>
+      <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='Combine'></input>
+      </div>
+ 	</form>
+
+ </div>
+ </html>
+{% endblock %}
+
+

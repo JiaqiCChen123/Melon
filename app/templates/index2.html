@@ -1,0 +1,437 @@
+<html>
+<head>
+<title>Melon - Music from Lyrics</title>
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+<body>
+
+
+
+
+  
+<section id="nav-bar">
+
+
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand" href="index"><img src="static/images/melon.jpg"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  	<i class="fa fa-bars" aria-hidden="true"></i>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="#about">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#services">Services</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#demo">Demo</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#team">Team</a>
+      </li>
+<!--      <li class="nav-item">-->
+<!--        <a class="nav-link" href="#footer">Contact</a>-->
+<!--      </li>-->
+
+      <li class="nav-item" id="loginLabel">
+        <a class="nav-link js-scroll-trigger" href="login" style="color:black">Login</a>
+      </li>
+      <li class="nav-item" id="registerLabel">
+        <a class="nav-link js-scroll-trigger" href="register">Register</a>
+      </li>
+      <li class="nav-item" id="userLabel">
+        <a class="nav-link js-scroll-trigger" href="user" >My Page - {{user}}</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+</section>
+<!----------------Banner section---------------->
+<section id="banner">
+<div class="container">
+<div class="row">
+<div class="col-md-6">
+<p class="promo-title">MELON</p>
+<p>Create music through AI fed with lyrics.</p>
+<a href="#demo"><img src="static/images/play.png" class="play-btn">TRY IT NOW</a>
+
+</div>
+<div class="col-md-6 text-center">
+<img src="static/images/home2.jpg" class="img-fluid">
+</div>
+</div>
+</div>
+
+<img src="static/images/waves.png" class="bottom-img">
+</section>
+<!---------------About US--------------->
+<section id="about">
+<div class="container">
+<h1 class="title text-center">♪ ABOUT</h1>
+<div class="row">
+<div class="col-md-6 about-us">
+<p class="about-title">What we do</p>
+<p>Melon will allow users to feed their original text into our lyrics-to-melody generative model reinforced by neural networks and create music. We want to help those intimidated by the difficulty of music-making have fun in generating original melodies and inspire those who are interested in writing songs to further explore their potential in producing quality music.</p>
+</div>
+<div class="col-md-6">
+<img src="static/images/about-us-main.png" class="img-fluid">
+</div>
+</div>
+</section>
+<!-----------------Services Section------------>
+<section id="services">
+<div class="container text-center">
+<h1 class="title">♪ STEPS TO GENERATE MUSIC</h1>
+<div class="row text-center">
+<div class="col-md-4 services">
+<img src="static/images/service1.png" class="service-img">
+<h4>UPLOAD TEXT</h4>
+<p>The first step of geerating music is to upload your lyrics. Simply copy and paste in the following box and press upload button! Also, don't forget to choose aucostic or vocal!</p>
+</div>
+<div class="col-md-4 services">
+<img src="static/images/service2.png" class="service-img">
+<h4>AUDITION</h4>
+<p>Listen to the music we generated for you! If you don't like it, try "switch" to change the tone to another one! We'll add genre feature in the feature and let you change it as well! </p>
+</div>
+<div class="col-md-4 services">
+<img src="static/images/service3.png" class="service-img">
+<h4>DOWNLOAD</h4>
+<p>You can download the music we generated for you and play as many times as you like or add it to your background music! </p>
+</div>
+</div>
+	<button type="button"class="btn btn-primary">Future Plans</button>
+</div>
+</section>
+
+<section id="demo">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 mx-auto" style="width:800px">
+        </br></br>
+        <h1 class="title text-center">♪ DEMO</h1>
+
+
+        </br>
+<!--          <img src="static/melon.jpg" style="width:100px;">-->
+<!--         </br>
+        <label>Your lyrics:</label>
+        </br> -->
+<!--        <form action="/generate" method="POST">-->
+        <textarea class="d-flex justify-content-center" name="lyricsTextArea"
+                  style="height: 200px; width: 600px;" aria-describedby="demoHelp"
+                  placeholder="Enter your lyrics here (30 words maximum)"></textarea>
+        <small id="demoHelp" class="form-text text-muted">Try: You turn my nights! into days and lead me to mysterious ways</small>
+          <!--TEST: You turn my nights! into days and lead me to mysterious ways-->
+        </br>
+        </br>
+            <input type="submit" value="Generate" class="btn btn-primary" onclick="generateMusic()">
+        </br></br>
+
+        <div id="progressBarDiv" style="display:none">
+          <div class="progress">
+          <div id="progressBar" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+               aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%"></div>
+          </div>
+        </div>
+        </br></br>
+
+        <div id="musicDemoDiv" style="display:none">
+          <audio controls>
+            <source src="static/music/test.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+        </br></br>
+<!--        </form>-->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-------------------Social Media Section------------------------>
+<section id="social-media">
+<div class="container text-center">
+  <h1 class="title text-center">♪ FIND US ON SOCIAL MEDIA</h1>
+	<div class="social-icons">
+	<a href="#"><img src="static/images/tiktok.png"></a>
+	<a href="#"><img src="static/images/ins.png"></a>
+	</div>
+</div>
+</section>
+
+
+
+<!-----------------Testimonials-------------------->
+<!-- <section id="testimonials">
+<div class="container">
+<h1 class="title text-center">♪ OUR TEAM</h1>
+<div class="row offset-1">
+<div class="col-md-5 testimonials">
+	<p><br>- BS Computer Science, Business Administration (Dual Degree),University of Southern California '18<br>- MS Computer Science, University of Southern California '19</p>
+	<img src="images/user_dd.jpeg" class="float-left">
+	<p class="user-details"><b>Ding</b><br>CTO</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BS Physics, Huazhong University of Science and Technology '19<br></p>
+	<img src="images/user_sc.jpeg" class="float-left">
+	<p class="user-details"><b>Sihan</b><br>Deep Learning Expert</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BS Applied and Computational Mathematics, Accounting, Business Administration, University of Southern California '18</p>
+	<img src="images/user_tq.jpeg">
+	<p class="user-details"><b>Arthur</b><br>Frontend Design<br>"Responsibility, Influncing, Sustaining"</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BS Human Resource Management, Zhejiang University '19</p>
+	<img src="images/user_jl.jpg">
+	<p class="user-details"><b>Jingxian</b><br>Frontend Design</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BS Statistics, University of Hong Kong '17</p>
+	<img src="images/user_yz.jpg">
+	<p class="user-details"><b>Yunzheng Zhao</b><br>Backend Design</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BBA Accounting, Xiamen University '19</p>
+	<img src="images/user_jc.jpg">
+	<p class="user-details"><b>Jiaqi Chen</b><br>Backend Design</p>
+</div>
+<div class="col-md-5 testimonials">
+	<p><br>- BA English, Hefei University of Technology '17<br>- MS Economics, University of Illinois at Urbana-Champaign '19</p>
+	<img src="images/user_wh.jpg">
+	<p class="user-details"><b>Wendeng Hu</b><br>Backend Design</p>
+</div>
+</div>
+</div>
+</section> -->
+
+<!-- ======= Team Section ======= -->
+<section id="team" class="team">
+      <div class="container text-center">
+</br></br>
+        <div class="section-title">
+          <h1 class="title text-center">♪ TEAM</h1>
+
+        </div>
+
+        <div class="row">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_dd.jpeg" alt="">
+              <h4>Ding Ding</h4>
+              <span>Chief Technology Officer</span>
+              <p> "You only live once"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_tq.jpeg" alt="">
+              <h4>Tian Qin</h4>
+              <span>Frontend, Product Manager</span>
+              <p> "Responsibility, Influncing, Sustaining"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_jl.jpg" alt="">
+              <h4>Jingxian Li</h4>
+              <span>Frontend, Product Manager</span>
+              <p>
+                 "If not you, who?"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_sc.jpeg" alt="">
+              <h4>Sihan Chen</h4>
+              <span>Deep Learning Scientist</span>
+              <p>
+                "Only toilet paper deals with more *** than I do"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_jc.jpg" alt="">
+              <h4>Jiaqi Chen</h4>
+              <span>Backend</span>
+              <p>
+                "Let things go"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_yz.jpg" alt="">
+              <h4>Yunzheng Zhao</h4>
+              <span>Backend, Frontend</span>
+              <p>
+                "Well done is better than well said"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+            <div class="member">
+              <img src="static/images/user_wh.jpg" alt="">
+              <h4>Wendeng Hu</h4>
+              <span>Backend</span>
+              <p>
+                "I came, I saw, I conquered"
+              </p>
+              <div class="social">
+                <a href=""><i class="icofont-twitter"></i></a>
+                <a href=""><i class="icofont-facebook"></i></a>
+                <a href=""><i class="icofont-instagram"></i></a>
+                <a href=""><i class="icofont-linkedin"></i></a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+</br></br>
+
+      </div>
+
+    </section>
+
+
+
+<!--  End Team Section -->
+
+
+
+<!-- ----------------------Footer section------------------------ -->
+<section id="footer">
+<div class="container">
+<div class="row">
+<div class="col-lg-6 footer-box">
+<p><b>CONTACT US</b></p>
+<p><i class="fa fa-music"></i>  Team Melon 2020</p>
+<p><i class="fa fa-map-marker"></i>  101 Horwar St, San Francisco, CA</p>
+<p><i class="fa fa-phone"></i>  +1 415-832-0659</p>
+<p><i class="fa fa-envelope-o"></i>  jenny.jingxian.li@gmail.com</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</section>
+
+</body>
+</html>
+
+<script>
+
+/*
+function greeting(name) {
+  alert('Hello ' + name);
+}
+
+function processUserInput(callback) {
+  var name = prompt('Please enter your name.');
+  callback(name);
+}
+
+processUserInput(greeting);
+*/
+function start(i){
+  if(i <= 5){
+    setTimeout(function(){
+      var width = document.getElementById("progressBar").style.width;
+      document.getElementById("progressBar").style.width = i*20+"%";
+      console.log(document.getElementById("progressBar").style.width)
+      i++;
+      start(i);
+    }, 1000);
+  }
+}
+
+function generateMusic() {
+  document.getElementById("progressBarDiv").style.display = 'block';
+  start(1);
+  setTimeout(function(){
+     document.getElementById("progressBarDiv").style.display = 'none';
+     document.getElementById("musicDemoDiv").style.display = 'block';
+  },
+  7000);
+}
+
+
+var user = "{{ user | safe }}";
+console.log(user)
+if (user == "Anonymous") {
+  document.getElementById("userLabel").style.display = 'none';
+  document.getElementById("loginLabel").style.display = 'block';
+  document.getElementById("registerLabel").style.display = 'block';
+
+} else {
+  document.getElementById("loginLabel").style.display = 'none';
+  document.getElementById("registerLabel").style.display = 'none';
+  document.getElementById("userLabel").style.display = 'block';
+}
+</script>
+<!-- <ul>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	<li>Believe in doing business with honest</li>
+	</ul> -->

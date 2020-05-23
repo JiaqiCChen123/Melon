@@ -1,0 +1,143 @@
+<!--<html>-->
+<!--<div class="container">-->
+
+<!--    <form method="POST">-->
+<!--        <h2>Sign Up </h2>-->
+<!--        {{ form.csrf_token }}-->
+<!--        {{ form.username.label}} {{form.username()}} <br/><br/>-->
+<!--        {{ form.email.label}} {{form.email()}} <br/><br/>-->
+<!--        {{ form.password.label}} {{form.password()}} <br/><br/>-->
+<!--        {{ form.submit()}}-->
+<!--        {% if error %}-->
+<!--        <br/><p style="color:red"> {{error}} </p>-->
+<!--        {% endif %}-->
+<!--    </form>-->
+<!--    <br/>-->
+
+<!--</div>-->
+
+<!--<div>-->
+<!--    Already have an account?-->
+<!--    <a href="/login">Login</a>-->
+<!--</div>-->
+
+<!--</html>-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.navbar-brand img
+{
+  height: 30px;
+  margin-top: -10%;
+}
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  z-index: -2;
+  fill-opacity: 0.5;
+}
+.waves > svg > path:first-of-type {
+  fill: #b4e9bb;
+}
+.waves > svg > path:last-of-type {
+  fill: #9bdda4;
+}
+.page-title{
+  font-size: 20px;
+  font-weight: 900;
+  margin: var(--spacing) 0;
+  letter-spacing: 2px;
+  flex: 1;
+	font-family: 'Montserrat', sans-serif;
+	color: #9bdda4;
+	text-align: center;
+  overflow: hidden;
+  margin-top: 100px;
+}
+#sub-button
+{
+  position: relative;
+	top: 50%;
+  left: 30%;
+  box-shadow: none;
+	padding: 10px 50px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+}
+</style>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="index"><img src="static/images/melon-logo1.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/index"><span class="glyphicon glyphicon-home"></span> Home</span></a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <!-- wave -->
+    <div class="waves">
+      <svg viewbox="0 0 100 20">
+        <path opacity="0.5" d="M0 25V10C35.5 -10.5 61.5 6.5 100 10V25H0Z" fill="black"/>
+        <path d="M0 25V7C20 10.3333 38.3333 10.3333 55 7C71.6667 3.66667 86.6667 3.33333 100 6V25H0Z" fill="#FF0000" fill-opacity="0.5"/>
+      </svg>
+    </div>
+  </body>
+
+
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+<div class="container" style="width:400px">
+ <h3 class="page-title">Create Your Account</h3>
+  <hr>
+  <form action="" method="post" class="form" role="form">
+   {{ form.csrf_token() }}
+   <div class="row">
+    <div class="form-group col-md-12">
+     {{ wtf.form_field(form.username, class='form-control',
+        placeholder='Username') }}
+    </div>
+    <div class="form-group col-md-12">
+     {{ wtf.form_field(form.email, class='form-control',
+        placeholder='Email') }}
+    </div>
+       <div class="form-group col-md-12">
+     {{ wtf.form_field(form.password, class='form-control',
+        placeholder='Password') }}
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary" id="sub-button">Register</button>
+  </form>
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+          <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span class="sr-only">Error:</span>
+          {{error}}
+        </div>
+        {% endif %}
+  <hr>
+  <p>Already an user? <a href="/login" class="btn btn-default btn-sm">
+          <span class="glyphicon glyphicon-sunglasses"></span> Login here!</a></p>
+</div>
+{% endblock %}

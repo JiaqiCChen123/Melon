@@ -1,0 +1,121 @@
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.navbar-brand img
+{
+  height: 30px;
+  margin-top: -10%;
+}
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  z-index: -2;
+  fill-opacity: 0.5;
+}
+.waves > svg > path:first-of-type {
+  fill: #b4e9bb;
+}
+.waves > svg > path:last-of-type {
+  fill: #9bdda4;
+}
+.page-title{
+  font-size: 20px;
+  font-weight: 900;
+  margin: var(--spacing) 0;
+  letter-spacing: 2px;
+  flex: 1;
+	font-family: 'Montserrat', sans-serif;
+	color: #9bdda4;
+	text-align: center;
+  overflow: hidden;
+  margin-top: 100px;
+}
+#sub-button
+{
+  position: relative;
+	top: 50%;
+  left: 30%;
+  box-shadow: none;
+	padding: 10px 50px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+}
+</style>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="index"><img src="static/images/melon-logo1.png"></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/index"><span class="glyphicon glyphicon-home"></span> Home</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/user"><span class=""></span> | User Page</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+<div class="container" style="width:1000px;">
+ <h2 class="page-title">HEY, {{user.username}} !</h2>
+  <hr>
+
+  <section id="search">
+    <h3>Search Lyrics</h3>
+  <div class="row">
+    <div class="col-sm-6">
+      {% extends "bootstrap/base.html" %}
+      {% import "bootstrap/wtf.html" as wtf %}
+      {% block content %}
+      <form action="/search/result" method="post">
+          <div class="form-group">
+          <label for="singer">Singer: </label>
+          <input type="text" class="form-control" name="singer" id="singer" aria-describedby="singerHelp" placeholder="" value="{{singer}}">
+          <small id="singerHelp" class="form-text text-muted">Try: Taylor Swift</small>
+          </div>
+          <div class="form-group">
+          <label for="song">Song: </label>
+          <input type="text" class="form-control" name="song" id="song" aria-describedby="songHelp" placeholder="" value="{{song}}">
+          <small id="songHelp" class="form-text text-muted">Try: Lover</small>
+          </div>
+          <button type="submit" class="btn btn-primary" id="sub-button">Search!</button>
+      </form>
+      {% if lyrics=='error' %}
+          <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> Not Found!
+          </div>
+    </div>
+    {% else %}
+
+        <div class="form-group" id="lyricsArea">
+        <textarea class="form-control" id="lyrics" style="width:500px;height:300px;">
+          {% for line in lyrics%}
+          {{line}}
+          {% endfor %}
+        </textarea>
+        </div>
+
+    {% endif %}
+    {% endblock %}
+  </div>
+  <hr>
+</div>
+</section>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'ga.html' %}
+	<!-- SOURCE:https://codepen.io/z-/details/MQRGOe -->
+	<title></title>
+<!-- 	<link rel="stylesheet" type="text/css" href="static/player.scss">
+	<link rel="stylesheet" type="text/css" href="static/player.css"> -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<style type="text/css">
+		
+body {
+  font-family: 'Montserrat', sans-serif;
+  min-height: 100vh;
+  max-height: 100vh;
+  margin: 0;
+  color: #fff;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  background: #222222;
+  background: -webkit-linear-gradient(to top, #232526, #414345);
+}
+body a {
+  color: inherit;
+}
+body a:not(:hover) {
+  text-decoration: none;
+}
+body #link-a-me {
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  height: 60px;
+  width: 60px;
+  background: url(https://i.imgur.com/xoxkq1r.png);
+  background-size: cover;
+  z-index: 1;
+  -webkit-animation: pop-in 120s ease-out;
+          animation: pop-in 120s ease-out;
+}
+body .content {
+  overflow: hidden;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  height: calc(100% - 80px);
+}
+body .content .lyrics {
+  padding: 50vh 0;
+  min-height: calc(100vh - 80px);
+  width: calc(100% - 40px);
+  margin: 0 20px;
+  text-align: center;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+  position: relative;
+}
+body .content .lyrics > div {
+  position: relative;
+  font-size: 40px;
+  line-height: 80px;
+  color: #666;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+}
+body .content .lyrics > div:before {
+  content: attr(note);
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  font-size: 18px;
+}
+body .content .lyrics > div.highlighted {
+  color: #fff;
+  font-size: 48px;
+}
+body .player {
+  z-index: 10;
+  background: #F9F9F9;
+  color: #000;
+  min-height: 80px;
+  max-height: 80px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+body .player .left {
+  width: 80px;
+  background-image: url(https://i.scdn.co/image/9ca53beeb365f468b023a8360634f309325b5487);
+  background-size: cover;
+}
+body .player .right {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+body .player .right .top {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  -webkit-box-pack: center;
+          justify-content: center;
+  padding-left: 10px;
+}
+body .player .right .top .song {
+  font-size: 1.2em;
+  font-weight: 600;
+}
+body .player .right .bottom {
+  display: -webkit-box;
+  display: flex;
+}
+body .player .right .bottom video {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  height: 32px;
+}
+
+@-webkit-keyframes pop-in {
+  0%, 95% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+}
+
+@keyframes pop-in {
+  0%, 95% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+}
+}
+
+@keyframes pop-in {
+   0%, 95%{
+      transform:translateY(100%);
+   }
+   100%{
+      transform:translateY(0%);
+   }
+}
+
+	</style>
+
+</head>
+<body>
+
+<div class="content">
+   <div class="lyrics"></div>
+</div>
+
+<div class="player">
+   <div class="left"></div>
+   <div class="right">
+      <div class="top">
+         <a class="song" href="https://open.spotify.com/track/52LlzTfdulBMiwH4BZy5Sq?si=1c1rwqNYSf6ZaaRbzlstLQ">Let's Go To the Forest</a>
+         <a class="artist" href="https://open.spotify.com/artist/6OqhFYFJDnBBHas02HopPT?si=vQaSwY1DRkyhj-eoKZlMrw">Kero Kero Bonito</a>
+      </div>
+      <div class="bottom">
+<!--          <video controls="" _autoplay="" name="media"><source src="https://i.koya.io/Kero%20Kero%20Bonito%20-%20Let's%20Go%20To%20The%20Forest.mp3" type="audio/mpeg"></video> -->
+         	         <video controls="" _autoplay="" name="media"><source src="static/music/final_output.mp3"></video>
+      </div>
+   </div>
+</div>
+
+
+</body>
+</html>
+
+
+<script type="text/javascript">
+	console.clear();
+	var _data = JSON.parse(`{"lyrics":[{"line":"","time":-1},{"line":"Hey, let's all go into the forest","note":"Verse 1","time":16000},{"line":"Nobody will notice for a while","time":20000},{"line":"There we can visit all the creatures","time":24000},{"line":"Maybe they can teach us facts of life","time":27500},{"line":"","time":32000},{"line":"Or we can travel to the ocean","note":"Verse 2","time":55500},{"line":"Don't forget your lotion","time":59500},{"line":"It's quite hot","time":61500},{"line":"I once met seven lovely crabs","time":64000},{"line":"They said I should go back and join them for tea","time":67500},{"line":"","time":72000},{"line":"Oh wait, the forest got demolished","note":"Verse 3","time":95500},{"line":"When they built the airport years ago","time":99000},{"line":"But we can still go see the ocean","time":103500},{"line":"Cause they put it in a bowl at the mall","time":107500},{"line":"","time":112000}]}`);
+	var currentLine = "";
+
+	function align() {
+	   var a = $(".highlighted").height();
+	   var c = $(".content").height();
+	   var d = $(".highlighted").offset().top - $(".highlighted").parent().offset().top;
+	   var e = d + (a/2) - (c/2);
+	   $(".content").animate(
+	       {scrollTop: e + "px"}, {easing: "swing", duration: 250}
+	   );
+	}
+
+	var lyricHeight = $(".lyrics").height();
+	$(window).on("resize", function() {
+	   if ($(".lyrics").height() != lyricHeight) { //Either width changes so that a line may take up or use less vertical space or the window height changes, 2 in 1
+	      lyricHeight = $(".lyrics").height();
+	      align();
+	   }
+	});
+
+	$(document).ready(function(){
+	   $("video").on('timeupdate', function(e){
+	      var time = this.currentTime*1000;
+	      var past = _data["lyrics"].filter(function (item) {
+	         return item.time < time;
+	      });
+	      if (_data["lyrics"][past.length] != currentLine) {
+	         currentLine = _data["lyrics"][past.length];
+	         $(".lyrics div").removeClass("highlighted");
+	         $(`.lyrics div:nth-child(${past.length})`).addClass("highlighted"); //Text might take up more lines, do before realigning
+	         align();
+	      }
+	   });
+	});
+
+	generate();
+
+	function generate() {
+	   var html = "";
+	   for(var i = 0; i < _data["lyrics"].length; i++) {
+	      html += "<div";
+	      if(i == 0) {
+	         html+=` class="highlighted"`;
+	         currentLine = 0;
+	      }
+	      if(_data["lyrics"][i]["note"]) {
+	         html += ` note="${_data["lyrics"][i]["note"]}"`;
+	      }
+	      html += ">";
+	      html += _data["lyrics"][i]["line"] == "" ? "•" : _data["lyrics"][i]["line"];
+	      html += "</div>"
+	   }
+	   $(".lyrics").html(html);
+	   align();
+	}
+
+</script>

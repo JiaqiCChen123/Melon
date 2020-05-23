@@ -1,0 +1,390 @@
+/**
+ * @license
+ * Copyright 2019 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+ * {box-sizing: border-box}
+[hidden] {display: none !important}
+[disabled] {pointer-events:none; opacity: 0.3}
+
+body {
+  --background: #f2f4f6;
+  --foreground: #232946;
+  --primary: #f582ae;
+  --secondary: #00ebc7;
+  --spacing-s: 8px;
+  --spacing: 14px;
+  --spacing-m: 28px;
+  --box-height: 200px;
+
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'Work Sans', sans-serif;
+}
+
+/*
+ * Main layout.
+ */
+h1 {
+  text-align: center;
+  display: block;
+  font-size: 30px;
+  font-weight: lighter;
+  letter-spacing: 2px;
+}
+h1 > span, h1 > button {
+  display: inline-block;
+  vertical-align: middle;
+}
+h1.outside {
+  position: absolute;
+  top: -80px;
+  right: 0;
+}
+a:link, a:visited {
+  color: inherit;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: var(--primary);
+}
+
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box {
+  position: relative;
+  background: white;
+  padding: var(--spacing) var(--spacing-m);
+  width: 90vw;
+  max-width: 720px;
+  margin: 200px auto;
+  margin-bottom: 0;
+  height: var(--box-height);
+  border-radius: var(--spacing);
+  box-shadow: 0 30px 56px 6px rgba(0, 0, 0, 0.1);
+}
+
+.box.long {
+  padding: var(--spacing-m);
+  height: 100%;
+  background: transparent;
+  box-shadow: none;
+  margin-top: var(--spacing-m);
+  line-height: 1.4;
+}
+/*
+ * Album art.
+ */
+.album {
+  position: relative;
+  margin-right: var(--spacing-s);
+}
+.album.rotating {
+  animation: rotate infinite 15s linear;
+}
+@keyframes rotate {
+  from { transform: rotate(0) }
+  to   { transform: rotate(360deg) }
+}
+.album canvas {
+  background: white;
+  border: 10px solid white;
+  border-radius: var(--spacing);
+  border-radius: 50%;
+}
+
+/*
+ * Current song information.
+ */
+.song-title {
+  font-size: 18px;
+  font-weight: 900;
+  margin: var(--spacing) 0;
+  letter-spacing: 2px;
+  flex: 1;
+}
+.progress {
+  width: 100%;
+}
+.current-time, .total-time {
+  font-size: 12px;
+}
+progress {
+  -webkit-appearance: none;
+  border: none;
+  box-shadow: none;
+  height: 4px;
+  width: 100%;
+}
+/* Background. */
+progress::-webkit-progress-bar {
+  background:var(--background);
+  border: none;
+  box-shadow: none;
+}
+/* Value. */
+progress::-webkit-progress-value {
+  border: none;
+  box-shadow: none;
+  background: var(--foreground);
+}
+
+/*
+ * Play controls.
+ */
+.controls {
+  position: relative;
+  width: 100%;
+}
+
+button, .button {
+  display:block;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: inherit;
+  font-size: inherit;
+}
+a.button:link, a.button:visited {
+  font-weight: normal;
+  text-decoration: none;
+}
+button.square {
+  border: 1px solid #00b398;
+  border-radius: 3px;
+  padding: var(--spacing-s) var(--spacing-m);
+  background: var(--secondary);
+  color: var(--foreground);
+  min-width: 100px;
+  transition: background 0.2s linear;
+  margin: var(--spacing-m) auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+button.square:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--foreground);
+}
+
+button:hover {
+  color: var(--primary);
+}
+button svg, .button svg {
+  pointer-events: none;
+  fill: currentColor;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+button.active > svg.yes,
+button:not(.active) > svg.no {
+  display: block;
+}
+button:not(.active) > svg.yes,
+button.active > svg.no {
+  display: none;
+}
+button.active {
+  color: var(--secondary);
+}
+
+#btnShare svg {
+  height: 24px;
+  width: 24px;
+}
+
+/*
+ * Playlist.
+ */
+.popup {
+  position: absolute;
+  background: white;
+  border-radius: var(--spacing);
+  height: 0;
+  right: 0;
+  top: calc(var(--box-height) - 20px);  /* this is the same as the height set in .box and spacing*/
+  left: 300px; /* width of canvas + a bit */
+  padding: var(--spacing-s) var(--spacing-m);
+  visibility: hidden;
+  transition: height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: -10;
+}
+.popup.showing {
+  z-index: 1;
+  height: 40vh;
+  visibility: visible;
+  transition: height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  overflow: auto;
+}
+.popup.share.showing {
+  height: 200px;
+}
+.popup .content {
+  display: none;
+}
+.popup.showing .content {
+  display: block;
+}
+.popup ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.popup ul li {
+  padding: var(--spacing-s);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--background);
+}
+.popup ul li.list-header {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.popup ul li svg {
+  width: 24px;
+  height: 24px;
+}
+.popup ul li:not(.list-header):hover {
+  background: var(--background);
+}
+.popup ul li > div:first-of-type {
+  flex: 3;
+}
+.popup ul li > div:not(:first-of-type) {
+  flex: 1;
+}
+
+/*
+ * Bottom waves.
+ */
+.waves {
+  position: absolute;
+  bottom: 0;
+  width: 100vw;
+  z-index: -2;
+  fill-opacity: 0.5;
+}
+.waves > svg > path:first-of-type {
+  fill: var(--primary);
+}
+.waves > svg > path:last-of-type {
+  fill: var(--secondary);
+}
+
+/*
+ * Small screens.
+ */
+@media only screen and (max-width: 760px)  {
+  h1 {
+    font-size: 26px;
+  }
+}
+@media only screen and (max-width: 700px)  {
+  body {
+    --box-height: 260px;
+  }
+  .box {
+    flex-direction: column;
+    margin-top: 200px;
+  }
+  .box.long {
+    width: 100%;
+  }
+  h1 {
+    font-size: 5vw;
+  }
+  h1.outside {
+    right: auto;
+    top: -160px;
+  }
+  h1 svg {
+    width: 5vw;
+    height: 5vw;
+  }
+  canvas {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .album {
+    margin-top: -100px;
+    margin-right: 0;
+  }
+  .popup {
+    left: 0;
+    right: 0;
+  }
+  .popup.showing {
+    padding-top: var(--spacing-m);
+    margin-top: var(--spacing-s);
+    height: 30vh;
+    left: 0;
+  }
+  .waves {
+    transform: scaleY(4);
+  }
+}
+
+@media only screen and (max-width: 500px)  {
+  h1 {
+    font-size: 6vw;
+  }
+  h1 svg {
+    width: 7vw;
+    height: 7vw;
+  }
+}
+@media only screen and (min-width: 1100px)  {
+  .waves {
+    bottom: -20vh;
+  }
+}

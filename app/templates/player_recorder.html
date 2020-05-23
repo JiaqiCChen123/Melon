@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	{% include 'ga.html' %}
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Creative Audio Visualizers | Demo 5 | Codrops</title>
+	<meta name="description" content="An exploration of audio visualizers powered by p5.js" />
+	<meta name="keywords" content="visualizers, audio, javascript, upload, music, line, web design" />
+	<meta name="author" content="Codrops" />
+	<link rel="shortcut icon" href="favicon.ico">
+	<link rel="stylesheet" type="text/css" href="static/css/normalize.css" />
+	<link rel="stylesheet" type="text/css" href="static/css/demo.css" />
+	<script>
+	document.documentElement.className = 'js';
+	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+	<style type="text/css">
+
+
+		@import url('https://fonts.googleapis.com/css?family=Roboto:400');
+
+/* Pen-specific styles */
+* {
+  box-sizing: border-box;
+}
+html, body, section, div {
+  height: 100%;
+}
+
+body {
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 0.8 rem;
+
+  text-align: center;
+}
+
+
+
+section {
+  width: 100%;
+}
+
+.lyrics-content {
+float: left;
+width: 72%;
+height: 100%;
+
+  font-family: 'Montserrat', sans-serif;
+  margin: 0;
+  color: #fff;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+	background-color: #f6ead1;
+	background: -webkit-linear-gradient(to top, #232526, #414345);
+
+}
+
+.lyrics-content a {
+  color: inherit;
+}
+
+.lyrics-content a:not(:hover) {
+  text-decoration: none;
+}
+
+.lyrics-content #link-a-me {
+  position: relative;
+  bottom: 80px;
+  right: 20px;
+  height: 100%;
+  width: 100%;
+  background: url(https://i.imgur.com/xoxkq1r.png);
+  background-size: cover;
+  z-index: 1;
+  -webkit-animation: pop-in 120s ease-out;
+          animation: pop-in 120s ease-out;
+}
+
+.lyrics-content .content-minor {
+  overflow: hidden;
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  height: calc(100% - 20px);
+  background-color: #f6ead1;
+  line-height: 10px;
+}
+.lyrics-content .content-minor .lyrics {
+  padding: 20vh 0;
+  min-height: calc(100vh - 100px);
+  width: calc(100% - 50px);
+  left: 11%;
+
+  margin: 0 20px;
+  text-align: center;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+  position: relative;
+  top: 35%;
+  font-family: 'Open Sans',Roboto,Ubuntu,Tahoma,Geneva,sans-serif;
+   font-size: 18px;
+   background-color: f6ead1;
+}
+
+.lyrics-content .content-minor .lyrics > div {
+  position: relative;
+  font-size: 22px;
+  line-height: 50px;
+  color: #e27945;
+  -webkit-transition: all .25s;
+  transition: all .25s;
+  font-family: 'Open Sans',Roboto,Ubuntu,Tahoma,Geneva,sans-serif;
+}
+.lyrics-content .content-minor .lyrics > div:before {
+  content: attr(note);
+  position: absolute;
+  top: 0px;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+   font-family: 'Open Sans',Roboto,Ubuntu,Tahoma,Geneva,sans-serif;
+   font-size: 22px;
+}
+
+.lyrics-content .content-minor .lyrics > div.h_highlighted {
+  color: orange;
+   font-family: 'Open Sans',Roboto,Ubuntu,Tahoma,Geneva,sans-serif;
+   font-size: 26px;
+}
+
+.lyrics-content .player {
+position: relative;
+  z-index: 10;
+  left: 28%;
+  top: -2.3%;
+  background-color: #f6ead1;
+  color: white;
+  width: 150%;
+
+  max-height: 66px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+          flex-direction: row;
+}
+
+.lyrics-content .player .left {
+  border-radius: 5px;
+  left: 20px;
+  height: 62px;
+  width: 60px;
+  background-image: url("/static/melon.webp");
+  background-size: cover;
+}
+
+
+
+.lyrics-content .player .right {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  max-height: 60px;
+
+
+}
+
+
+.lyrics-content .player.right .bottom {
+  display: -webkit-box;
+  display: flex;
+}
+.lyrics-content .player.right .bottom video {
+  -webkit-box-flex: 1;
+          flex-grow: 1;
+  height: 32px;
+}
+
+
+.lyrics-content video {
+    display: inline-block;
+    height: 62px;
+    position: absolute;
+    width: 30%;
+    left: 5%;
+}
+
+@-webkit-keyframes pop-in {
+  0%, 95% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+}
+
+@keyframes pop-in {
+  0%, 95% {
+    -webkit-transform: translateY(100%);
+            transform: translateY(100%);
+  }
+  100% {
+    -webkit-transform: translateY(0%);
+            transform: translateY(0%);
+  }
+}
+}
+
+@keyframes pop-in {
+   0%, 95%{
+      transform:translateY(100%);
+   }
+   100%{
+      transform:translateY(0%);
+   }
+}
+
+
+
+
+
+
+
+.melon-content {
+	float: left;
+	width: 28%;
+
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: #fff;
+	background-color: #cae1a7;
+	overflow: hidden;
+	font-size: 0.85rem;
+
+
+}
+
+.melon-content a {
+	text-decoration: none;
+	color: inherit;
+	outline: none;
+}
+
+.melon-content a:hover,
+a:focus {
+	color: #333;
+}
+
+.hidden {
+	position: relative;
+	overflow: hidden;
+	width: 0;
+	height: 0;
+	pointer-events: none;
+}
+
+
+/* Content */
+
+.content{
+padding: 0;
+}
+.content-main {
+	min-height: 100vh;
+	padding: 0;
+}
+
+.canvas-wrapper {
+	position: relative;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+canvas {
+	border-radius: 30px;
+	position: absolute;
+	left: 25.5%;
+	top: 45%;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	width: 60%;
+	height: 60%;
+}
+
+.p5_loading {
+<!--	background: white;-->
+	position: fixed;
+	left: 0;
+	top: 0;
+	background: white;
+	width: 100%;
+	height: 100%;
+	z-index: 9;
+	overflow: hidden;
+}
+
+.p5_loading__inner {
+	position: absolute;
+	left: 50%;
+	top: 80%;
+	-webkit-transform: translate3d(-50%, -50%, 0);
+	transform: translate3d(-50%, -50%, 0);
+	display: flex;
+}
+
+.p5_loading__inner span {
+	display: block;
+	width: 100px;
+	height: 100px;
+	border-radius: 80%;
+	background: #f4ae72;
+	margin: 0 20px;
+	transform-origin: center;
+	animation: noiseLoad 0.5s infinite ease-in-out alternate;
+}
+
+.p5_loading__inner span:nth-child(2) {
+	animation-delay: 0.33s;
+}
+
+.p5_loading__inner span:nth-child(3) {
+	animation-delay: 0.86s;
+}
+
+@keyframes noiseLoad {
+	from {
+		transform: scale(0);
+		background: #f4ae72;
+	}
+
+	to {
+		transform: scale(1);
+		background: #f4ae72;
+
+	}
+}
+
+#uploading-animation {
+	display: none;
+}
+
+#uploading-animation.is-visible {
+	display: block;
+}
+
+.upload-btn::before,
+.toggle-btn {
+	padding: 10px;
+	text-align: center;
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	color: #cae1a7;
+	position: absolute;
+	bottom: 2vmax;
+	border: 1px solid;
+	width: 255px;
+}
+
+.upload-btn::before {
+	content: 'Upload your track';
+	display: inline-block;
+	left: 6vmax;
+	outline: none;
+	white-space: nowrap;
+	-webkit-user-select: none;
+	cursor: pointer;
+}
+
+.upload-btn:hover::before {
+	color: #ef8830;
+}
+
+.toggle-btn {
+	background: transparent;
+	color: #f6ead1;
+	right: 6vmax;
+}
+
+.toggle-btn:focus {
+	outline: none;
+}
+
+.toggle-btn:hover {
+	color: #ef8830;
+}
+
+/*.unhighlighted {
+	visibility: hidden;
+}*/
+
+.highlighted {
+	visibility: visible !important;
+	color: #e27945 !important;
+}
+
+
+@media screen and (max-width: 55em) {
+	.codrops-header {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.toggle-btn {
+		right: 10px;
+		bottom: 5.5em;
+		width: calc(50% - 20px);
+	}
+	.upload-btn::before {
+		position: absolute;
+		bottom: 9em;
+		left: 10px;
+		width: calc(50% - 20px);
+	}
+}
+
+.lyrics-content .recorder {
+  border-radius: 5px;
+
+  height: 62px;
+  width: 60px;
+  background-size: cover;
+  background-color: white;
+  position: relative;
+  bottom: 2%;
+  left: 27.9%;
+
+  z-index: 5;
+
+}
+
+audio{
+
+position: relative;
+left:32px;
+bottom: 132px;
+width: 415px;
+height: 60px;
+}
+
+.filler-yo{
+background-color:#f6ead1;
+ height:130px;
+  width:500px;
+position:relative;
+left: 27%;
+bottom: 13%;
+z-index: 3;
+
+}
+
+
+	</style>
+</head>
+
+
+	<body class="demo-5">
+	<section class="container">
+	<div class = 'melon-content'>
+	<svg class="hidden">
+<!--		<symbol id="icon-arrow" viewBox="0 0 24 24">-->
+<!--			<title>arrow</title>-->
+<!--			<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 " />-->
+<!--		</symbol>-->
+<!--		<symbol id="icon-drop" viewBox="0 0 24 24">-->
+<!--			<title>drop</title>-->
+<!--			<path d="M12,21c-3.6,0-6.6-3-6.6-6.6C5.4,11,10.8,4,11.4,3.2C11.6,3.1,11.8,3,12,3s0.4,0.1,0.6,0.3c0.6,0.8,6.1,7.8,6.1,11.2C18.6,18.1,15.6,21,12,21zM12,4.8c-1.8,2.4-5.2,7.4-5.2,9.6c0,2.9,2.3,5.2,5.2,5.2s5.2-2.3,5.2-5.2C17.2,12.2,13.8,7.3,12,4.8z" />-->
+<!--			<path d="M12,18.2c-0.4,0-0.7-0.3-0.7-0.7s0.3-0.7,0.7-0.7c1.3,0,2.4-1.1,2.4-2.4c0-0.4,0.3-0.7,0.7-0.7c0.4,0,0.7,0.3,0.7,0.7C15.8,16.5,14.1,18.2,12,18.2z" />-->
+<!--		</symbol>-->
+	</svg>
+	<main class="site-wrapper">
+		<header class="codrops-header">
+			<div class="codrops-links">
+				<a class="codrops-icon codrops-icon--prev" href="https://tympanus.net/Tutorials/PiecesSlider/" title="Previous Demo">
+					<svg class="icon icon--arrow">
+						<use xlink:href="#icon-arrow"></use>
+					</svg>
+				</a>
+				<a class="codrops-icon codrops-icon--drop" href="https://tympanus.net/codrops/?p=33934" title="Back to the article">
+					<svg class="icon icon--drop">
+						<use xlink:href="#icon-drop"></use>
+					</svg>
+				</a>
+			</div>
+<!--			<h1 class="codrops-header__title">Creative Audio Visualizers</h1>-->
+<!--			<nav class="demos">-->
+<!--				<a class="demo" href="index.html">Demo 1</a>-->
+<!--				<a class="demo" href="index2.html">Demo 2</a>-->
+<!--				<a class="demo" href="index3.html">Demo 3</a>-->
+<!--				<a class="demo" href="index4.html">Demo 4</a>-->
+<!--				<a class="demo demo&#45;&#45;current" href="index5.html">Demo 5</a>-->
+<!--			</nav>-->
+		</header>
+
+		<div class="content-main">
+
+
+			<div class="canvas-wrapper" >
+				<div id="p5_loading" class="p5_loading">
+					<div class="p5_loading__inner">
+						<span></span>
+					</div>
+				</div>
+				<div id="uploading-animation" class="p5_loading">
+					<div class="p5_loading__inner">
+						<span></span>
+					</div>
+				</div>
+				<canvas id="webglcanvas"></canvas>
+			</div>
+
+	</main>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.dom.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.11/addons/p5.sound.min.js"></script>
+	<script src="static/js/main5.js"></script>
+		</div>
+
+
+		<div class="lyrics-content">
+			<div class="content-minor">
+   				<div class="lyrics"></div>
+
+			</div>
+
+<div class="player">
+
+	<div class="left"></div>
+    <div class="right">
+
+      <div class="bottom">
+          <video controls="" _autoplay="" name="media"><source src="https://i.koya.io/Kero%20Kero%20Bonito%20-%20Let's%20Go%20To%20The%20Forest.mp3" type="audio/mpeg"></video>
+<!--         	         <video controls="" _autoplay="" name="media"><source src="static/music/final_output.mp3"></video>-->
+      </div>
+
+   </div>
+	</div>
+
+
+
+			<div class="recorder">
+				<div class="microphone">
+<!--		<p>Convert recorded audio to:</p>-->
+		<select id="encodingTypeSelect" hidden>
+		  <option value="wav" >Waveform Audio (.wav)</option>
+		</select>
+		<div id="controls">
+			<button id="recordButton" type="button" class="btn btn-success" style="color: green">Record</button>
+			<button id="stopButton" type="button" class="btn btn-danger" style="color: green" disabled>Stop</button>
+		</div>
+		<div id="formats"></div>
+<!--		<pre>Log</pre>-->
+		<pre id="log" hidden></pre>
+
+<!--		<pre>Recordings</pre>-->
+		<ol id="recordingsList" ></ol>
+					<script src="static/js/WebAudioRecorder.js"></script>
+	<script src="static/js/recorder-app.js"></script>
+				</div>
+
+	</div>
+
+		<div class="filler-yo"></div>
+
+
+
+</div>
+
+
+
+
+
+
+		</section>
+</body>
+
+</html>
+
+<script type="text/javascript">
+
+var pieces, radius, fft, analyzer, mapMouseX, mapMouseY, audio, toggleBtn, uploadBtn, uploadedAudio, uploadAnim;
+var colorPalette = ["white", "#BDD49A", "#e0f0e3", "#ffb440"];
+var uploadLoading = false;
+
+/*=============================================
+  SETUP
+=============================================*/
+
+function preload() {
+	audio = loadSound("static/audio/DEMO_5.mp3");
+}
+
+function uploaded(file) {
+	uploadLoading = true;
+	uploadedAudio = loadSound(file.data, uploadedAudioPlay);
+}
+
+
+function uploadedAudioPlay(audioFile) {
+
+	uploadLoading = false;
+
+	if (audio.isPlaying()) {
+		audio.pause();
+	}
+
+	audio = audioFile;
+	audio.loop();
+}
+
+function setup() {
+
+	uploadAnim = select('#uploading-animation');
+
+	createCanvas(420, 420);
+
+	toggleBtn = createButton("Play / Pause");
+
+	uploadBtn = createFileInput(uploaded);
+
+	uploadBtn.addClass("upload-btn");
+
+	toggleBtn.addClass("toggle-btn");
+
+	toggleBtn.mousePressed(toggleAudio);
+
+	analyzer = new p5.Amplitude();
+	fft = new p5.FFT();
+	audio.loop();
+
+}
+
+
+
+/*=============================================
+  DRAW
+=============================================*/
+function draw() {
+
+	// Add a loading animation for the uploaded track
+	// -----------------------------------------------
+	if (uploadLoading) {
+		uploadAnim.addClass('is-visible');
+	} else {
+		uploadAnim.removeClass('is-visible');
+	}
+
+	background(colorPalette[0]);
+
+	translate(210, 198);
+
+	level = analyzer.getLevel();
+	fft.analyze();
+
+	var bass = fft.getEnergy(100, 150);
+	var treble = fft.getEnergy(150, 250);
+	var mid = fft.getEnergy("mid");
+
+	var mapMid = map(mid, 0, 255, -100, 200);
+	var scaleMid = map(mid, 0, 255, 1, 1.5);
+
+
+
+	var mapTreble = map(treble, 0, 255, 200, 350);
+	var scaleTreble = map(treble/5, 0, 255/5, 0, 1);
+
+	var mapbass = map(bass, 0, 255, 50, 200);
+	var scalebass = map(bass, 0, 255, 0.05, 1.2);
+
+	mapMouseX = map(mouseX, 0, width, 1, 50/5);
+	mapMouseXbass = map(mouseX, 0, width, 1, 5/5);
+	mapMouseY = map(mouseY, 0, height, 2, 6);
+
+	pieces = 18;
+	radius = 0.8;
+
+	for (i = 0; i < pieces; i += 0.1) {
+
+		rotate(TWO_PI / (pieces / 2));
+
+		noFill();
+
+		/*----------  BASS  ----------*/
+		push();
+		stroke(colorPalette[1]);
+		rotate(frameCount * 0.002);
+		strokeWeight(0.8);
+		polygon(mapbass + i, mapbass - i, mapMouseXbass * i, 3);
+		pop();
+
+
+		/*----------  MID  ----------*/
+		push();
+		stroke(colorPalette[2]);
+		strokeWeight(0.3);
+		polygon(mapMid + i / 2, mapMid - i * 2, mapMouseX * i, 7);
+		pop();
+
+
+		/*----------  TREMBLE  ----------*/
+		push();
+		stroke(colorPalette[3]);
+		strokeWeight(0.9);
+		scale(mouseX * 0.0005);
+		rotate((mouseX * 0.002));
+		polygon(mapTreble + i / 2, mapTreble - i / 2, mapMouseY * i / 2, 3);
+		pop();
+
+	}
+
+}
+
+
+function toggleAudio() {
+	if (audio.isPlaying()) {
+		audio.pause();
+	} else {
+		audio.play();
+	}
+}
+
+
+function windowResized() {
+	resizeCanvas(420, 420);
+}
+
+function polygon(x, y, radius, npoints) {
+	var angle = TWO_PI / npoints;
+	beginShape();
+	for (var a = 0; a < TWO_PI; a += angle) {
+		var sx = x + cos(a) * radius;
+		var sy = y + sin(a) * radius;
+		vertex(sx, sy);
+	}
+	endShape(CLOSE);
+}
+
+
+
+
+	console.clear();
+	var _data = JSON.parse(`{"lyrics":[{"line":"","time":-1},{"line":"Hey, let's all go into the forest","note":"Verse 1","time":16000},{"line":"Nobody will notice for a while","time":20000},{"line":"There we can visit all the creatures","time":24000},{"line":"Maybe they can teach us facts of life","time":27500},{"line":"","time":32000},{"line":"Or we can travel to the ocean","note":"Verse 2","time":55500},{"line":"Don't forget your lotion","time":59500},{"line":"It's quite hot","time":61500},{"line":"I once met seven lovely crabs","time":64000},{"line":"They said I should go back and join them for tea","time":67500},{"line":"","time":72000},{"line":"Oh wait, the forest got demolished","note":"Verse 3","time":95500},{"line":"When they built the airport years ago","time":99000},{"line":"But we can still go see the ocean","time":103500},{"line":"Cause they put it in a bowl at the mall","time":107500},{"line":"","time":112000}]}`);
+	var currentLine = "";
+
+	function align() {
+	   var a = $(".h_highlighted").height();
+
+	   var c = $(".content-minor").height();
+	   var d = $(".h_highlighted").offset().top - $(".h_highlighted").parent().offset().top;
+	   var e = d + (a/2) - (c/2);
+	   $(".content-minor").animate(
+	       {scrollTop: e + "px"}, {easing: "swing", duration: 1000}
+	   );
+	}
+
+	var lyricHeight = $(".lyrics").height();
+
+	$(window).on("resize", function() {
+	   if ($(".lyrics").height() != lyricHeight) { //Either width changes so that a line may take up or use less vertical space or the window height changes, 2 in 1
+	      lyricHeight = $(".lyrics").height();
+	      align();
+	   }
+	});
+
+	$(document).ready(function(){
+
+	   $("video").on('timeupdate', function(e){
+	      var time = this.currentTime*1000;
+	      var past = _data["lyrics"].filter(function (item) {
+	         return item.time < time;
+	      });
+	      console.log("past", past)
+	      if (_data["lyrics"][past.length] != currentLine) {
+	         currentLine = _data["lyrics"][past.length];
+
+			 $(".lyrics div").removeClass("h_highlighted");
+	         $(".lyrics div").removeClass("h_highlighted");
+             // $(".lyrics div").addClass("unhighlighted");
+             // $(`.lyrics div:nth-child(${past.length})`).removeClass(
+             // 	"unhighlighted");
+	         $(`.lyrics div:nth-child(${past.length})`).addClass(
+	            "h_highlighted"); //Text might take up more lines, do before realigning
+	         align();
+	      }
+	   });
+	});
+
+	generate();
+
+	function generate() {
+	   var html = "";
+	   for(var i = 0; i < _data["lyrics"].length; i++) {
+	      html += "<div";
+	      if(i == 0) {
+	         html+=` class="h_highlighted"`;
+	         currentLine = 0;
+	      }
+	      //  else {
+	      // 	html+=` class="unhighlighted"`;
+	      // }
+	      if(_data["lyrics"][i]["note"]) {
+	         html += ` note="${_data["lyrics"][i]["note"]}"`;
+	      }
+	      html += ">";
+	      html += _data["lyrics"][i]["line"] == "" ? "🍈" : _data["lyrics"][i]["line"];
+	      html += "</div>"
+	   }
+
+
+	   $(".lyrics").html(html);
+	   align();
+
+
+
+
+
+	}
+
+
+</script>

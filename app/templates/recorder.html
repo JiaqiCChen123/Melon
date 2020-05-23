@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% include 'ga.html' %}
+	<meta charset="UTF-8">
+
+	<title>Audio Recording</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Latest compiled and minified Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<h1>Audio Recording</h1>
+	<p><small>Made by the Melon Group</small></p>
+	<div style="max-width: 28em;">
+		<p>Convert recorded audio to:</p>
+		<select id="encodingTypeSelect">
+		  <option value="wav">Waveform Audio (.wav)</option>
+		</select>
+		<div id="controls">
+			<button id="recordButton" type="button" class="btn btn-success">Record</button>
+			<button id="stopButton" type="button" class="btn btn-danger" disabled>Stop</button>
+		</div>
+		<div id="formats"></div>
+		<pre>Log</pre>
+		<pre id="log"></pre>
+
+		<pre>Recordings</pre>
+		<ol id="recordingsList"></ol>
+	</div>
+
+	<!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+	<script src="static/js/WebAudioRecorder.js"></script>
+	<script src="static/js/app.js"></script>
+
+</body>
+</html>

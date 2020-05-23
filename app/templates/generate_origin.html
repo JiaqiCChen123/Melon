@@ -1,0 +1,141 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Generate
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+      /*https://www.freecodecamp.org/news/how-to-build-a-delightful-loading-screen-in-5-minutes-847991da509f*/
+      /*--- Loading page ---*/
+      .loading_container {display: none;}
+      .loading_div {display: flex;  justify-content: center;  align-items: center;  min-height: 100vh;}
+      .loading {  max-width: 50%;  line-height: 1.4;  font-size: 1.6rem;  font-weight: bold;  text-align: center;}
+      .loading__sub {  font-weight: normal;  font-size: 1.2rem;  color: rgba(189,189,189 ,1);  margin: 0.6rem 0 2rem 0;  display: block;}
+      .loading__anim {  width: 70px;  height: 70px;  display: inline-block;  border: 5px solid rgba(189,189,189 ,0.25);  border-left-color: rgba(3,155,229 ,1);  border-top-color: rgba(3,155,229 ,1);  border-radius: 50%; animation: rotate 600ms infinite linear;}
+      @keyframes rotate { to {  transform: rotate(1turn) }} 
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+{% block content %}
+  {% include 'flash.html' %}
+  <div class="loading_container" id="loading_container">
+    <div class="loading_div">
+      <div class="loading">
+        <img src="https://purepng.com/public/uploads/medium/purepng.com-music-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596085a1vfa.png" style="height: 80px;">
+        <br>
+        "Music and rhythm find their way into the secret places of the soul."
+        <span class="loading__sub"> --- Plato </span>
+        <span class="loading__anim"></span>
+      </div>
+    </div>
+  </div>
+
+	 <div class="container container-fluid" id="generate_container">
+	 	<h1>Generate Music</h1>
+
+      <form action="{{ url_for('generate') }}" method="post">
+          <div class="form-group">
+          <label style="color:orange">Step 1: Input lyrics</label>
+          <input type="text" class="form-control" name="lyrics" id="lyrics" aria-describedby="lyricsHelp" placeholder="" value="{{lyrics}}">
+          <small id="lyricsHelp" class="form-text text-muted">Try: The snow glows white on the mountain tonight, not a footprint to be seen</small>
+          </div>
+
+          <label style="color:orange">Step 2: Choose a key</label>
+          <div>
+            <p>
+              <label>
+              <input name="key" type="radio" value="C"/><span>C</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="D"/><span>D</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="E"/><span>E</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="F"/><span>F</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="G"/><span>G</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="A"/><span>A</span>
+              </label>
+            </p>
+            <p>
+              <label>
+              <input name="key" type="radio" value="B"/><span>B</span>
+              </label>
+            </p>
+
+            {% if target_key %}
+              <label>You choose target key: {{target_key}}</label>
+            {% endif %}
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="sub-button" onclick="generateMusic()">Generate!</button>
+      </form>
+
+<!--       {% if syllables|length>20 %}
+          <div class="alert alert-danger" role="alert">
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error: </span> Not Found!
+          </div>
+      {% else %}
+        <div class="form-group" id="syllableArea">
+          <textarea class="form-control" id="syllable" style="height:300px;">
+            {{syllables}}
+          </textarea>
+        </div>
+      {% endif %}  -->
+
+      {% if syllables %}
+      <label style="color:orange">Step 3: Generate Music</label>
+      <div>
+          <audio controls>
+            <source src="static/music/final_output.mp3" type="audio/mp3">
+          </audio>       
+      </div>
+      {% endif %}
+
+	 </div>
+{% endblock %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+  function init() {
+    document.getElementById("loading_container").style.display = 'none';
+  }
+  function generateMusic() {
+    alert("Let's begin generating!");
+    document.getElementById("generate_container").style.display = 'none';
+    document.getElementById("loading_container").style.display = 'block';
+}
+</script>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "bootstrap/base.html" %}
+
+{% block title %}
+Melon
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'ga.html' %}
+    {% include 'style.html' %}
+    <style type="text/css">
+    </style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav.html' %}
+{% endblock %}
+
+{% block content %}
+	{% include 'main_page.html' %}
+{% endblock %}

@@ -1,0 +1,206 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Search
+{% endblock %}
+
+{% block head %}
+    {{super()}}
+    {% include 'ga.html' %}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="static/css/search.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+{% block content %}
+  {% include 'flash.html' %}
+	 <div class="container container-fluid">
+	 	<h1>Find some lyrics you like!</h1>
+	 	<form action="{{ url_for('search') }}" method="post">
+	 	  <div class="form-group">
+          <label for="singer">Singer: </label>
+          <input type="text" class="form-control" name="singer" id="singer" aria-describedby="singerHelp" placeholder="" value="{{singer}}">
+          <small id="singerHelp" class="form-text text-muted">Try: Taylor Swift</small>
+          </div>
+
+          <div class="form-group">
+          <label for="song">Song: </label>
+          <input type="text" class="form-control" name="song" id="song" aria-describedby="songHelp" placeholder="" value="{{song}}">
+          <small id="songHelp" class="form-text text-muted">Try: Lover</small>
+          </div>
+<!-- add two submit buttons here. One for searching lyrics and input for submit input lyrics -->
+          <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='search' ></input>
+
+          {% if lyrics %}
+          <div>
+          <textarea class="materialize-textarea">
+            {% for line in lyrics %}
+          	   {{line}}
+          	{% endfor %}
+           </textarea>
+          </div>
+          {% endif %}
+
+          </form>
+
+     {% include 'flash_input_lyrics.html' %}
+      <form action="{{ url_for('search') }}" method="post">
+          <div class="form-group">
+          <br>
+          <label for="input_lyrics">Put your lyrics here!</label>
+          <input type='text' class="form-control" id="input_lyrics" name='input_lyrics' rows="3" value="{{input_lyrics}}">
+          <small id="lyricsHelp" class="form-text text-muted">Example: Let it go, let it go, can't hold it back anymore</small>
+          </div>
+          <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='Confirm your lyrics' ></input>
+        </form>
+
+          <!-- <button type="submit" class="btn btn-primary" id="sub-button">Generate melody!</button> -->
+          <p>
+          <div id="browse_app">
+          <a class="btn btn-primary" href="#down">Generate melody!</a>
+          <div id="down">
+          {% block content2 %}
+            {% include 'flash.html' %}
+
+            <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+
+          <script src="https://kit.fontawesome.com/e3cdd0fd88.js" crossorigin="anonymous"></script>
+
+            <div class="loading_container" id="loading_container">
+              <div class="loading_div">
+                <div class="loading">
+                  <img src="https://purepng.com/public/uploads/medium/purepng.com-music-iconsymbolsiconsapple-iosiosios-8-iconsios-8-721522596085a1vfa.png" style="height: 80px;">
+                  <br>
+                  "Music and rhythm find their way into the secret places of the soul."
+                  <span class="loading__sub"> --- Plato </span>
+                  <span class="loading__anim"></span>
+                </div>
+              </div>
+            </div>
+
+             <div class="container container-fluid" id="generate_container">
+              <h1>Generate Music</h1>
+
+                <form action="{{ url_for('generate') }}" method="post">
+
+                    <label style="color:orange">Step 1: Choose a key:</label>
+                    <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <label class="btn btn-light">
+                        <input type="radio" name="key"  autocomplete="off" value="C" aria-pressed="true" data-toggle="button"> C
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key"  autocomplete="off" value="D" aria-pressed="true" data-toggle="button"> D
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key"  autocomplete="off" value="E" aria-pressed="true" data-toggle="button"> E
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key" autocomplete="off" value="F" aria-pressed="true" data-toggle="button"> F
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key"  autocomplete="off" value="G" aria-pressed="true" data-toggle="button"> G
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key"  autocomplete="off" value="A" aria-pressed="true" data-toggle="button"> A
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="key" autocomplete="off" value="B" aria-pressed="true" data-toggle="button"> B
+                      </label>
+                    </div>
+
+                      {% if target_key %}
+                        <label>You choose target key: {{target_key}}</label>
+                      {% endif %}
+
+
+                      <br>
+                      <label style="color:orange">Step 2: Choose an instrument:</label>
+                      <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" >
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Piano" ><img src='static/images/keyboard.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Guitar"><img src='static/images/guitar.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Bass"><img src='static/images/bass.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument" autocomplete="off" value="Drum"><img src='static/images/drum.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Violin"><img src='static/images/violin.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument"  autocomplete="off" value="Trumpet"><img src='static/images/trumpet.png' height="32" width="38">
+                      </label>
+                      <label class="btn btn-light">
+                        <input type="radio" name="instrument" autocomplete="off" value="Saxophone"><img src='static/images/saxophone.png' height="32" width="38">
+                      </label>
+                       </div>
+
+                      {% if instrument %}
+                        <label>You choose target instrument: {{instrument}}</label>
+                      {% endif %}
+
+                <br></br>
+                <label style="color:orange">Step 3: Generate Music:</label>
+                    <input type="submit" class="btn btn-primary" id="sub-button" name='submit' value='Generate!' onclick='generateMusic()'></input>
+                </form>
+
+
+                {% if syllables %}
+                <div>
+                    <audio controls>
+                      <source src="static/music/final_output.mp3" type="audio/mp3">
+                    </audio>
+                </div>
+                <div id="waveform"></div>
+                {% endif %}
+
+             </div>
+          {% endblock %}
+
+
+          {% block scripts %}
+          <script type="text/javascript">
+            function init() {
+              document.getElementById("loading_container").style.display = 'none';
+            }
+
+            // var wavesurfer = WaveSurfer.create({
+            //   container: '#waveform',
+            //   waveColor: 'violet',
+            //   progressColor: 'purple',
+            //       barWidth: 2,
+            //   barHeight: 1, // the height of the wave
+            //   barGap: null // the optional spacing between bars of the wave, if not provided will be calculated in legacy format
+            // });
+
+            function generateMusic() {
+              // alert("Let's begin generating!");
+              document.getElementById("generate_container").style.display = 'none';
+              document.getElementById("loading_container").style.display = 'block';
+              // wavesurfer.load('static/music/final_output.mp3');
+            }
+          </script>
+          {% endblock %}
+          </div>
+          </div>
+          </p>
+
+	 </div>
+{% endblock %}

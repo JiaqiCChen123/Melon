@@ -1,0 +1,943 @@
+<!-- SOURCE: https://codepen.io/qingliwebsite/pen/gWBNgB -->
+<html>
+  <head>
+    <title>Melon - Lyrics 2 Music</title>
+    <meta property="og:url"           content="http://melon-app.eba-6mh3jyrq.us-west-2.elasticbeanstalk.com/" />
+    <meta property="og:type"          content="website" />
+    <meta property="og:title"         content="Melon" />
+    <meta property="og:description"   content="Lyrics 2 Music" />
+    <meta property="og:image"         content="static/iamges/melon-logo1.png" />
+
+    <link rel="shortcut icon" type="image/x-icon" href="static/favicon.ico" />
+    <!-- <link rel="stylesheet" href="static/player-style.css"> -->
+    <link rel="stylesheet" href="static/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">  
+
+  </head>
+  <style>
+        @import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700');
+
+/* ---banner--- */
+.promo-title
+{
+    font-family: 'Work Sans', sans-serif;
+    font-size: 80px;
+    position: relative;
+    left: 10%;
+}
+.promo-title p
+{
+    font-size: 20px;
+}
+/* ----lyrics---- */
+#lyrics
+{
+	background: white;
+	padding-bottom: 200px;
+	padding-top: 100px;
+}
+
+.lyrics-container{
+	position: relative;
+	width: 500px;
+	height: 100px;
+	top: 50%;
+	left: 50%;
+	/* margin-top: -200px;  */
+	margin-left: -250px;
+	background-color: #ffbd66;
+  }
+  .lyrics-container textarea {
+	background: "textarea-bg.png";
+	border: none; 
+	outline: none;
+    resize: none;
+	font-size: 20px; 
+	font-family: 'Montserrat', sans-serif;
+	color: darkslategray;
+	text-align: center;
+	overflow: hidden;
+	width: 500px;
+	height: 100px;
+  }
+  
+  /* #lyrics-container a {
+	border: none; 
+	outline: none;
+  resize: none;
+	font-size: 16px; 
+	font-family: 'Montserrat', sans-serif; 
+	color: darkslategray;
+	text-align: center;
+	overflow: hidden;
+	width: 200px;
+  height: 100px;
+  position: relative;
+  left: 25%;
+  } */
+
+  #lyrics-container .btn-primary
+{
+  box-shadow: none;
+	padding: 10px 20px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+  position: relative;
+  left: 20%;
+}
+  .reg-buttons{
+	position: relative;
+	width: 500px;
+	height: 100px;
+	top: 50%;
+  left: 50%;
+	/* margin-top: -200px;  */
+	margin-left: -200px;
+  }
+
+  #lyrics .btn-primary
+{
+  box-shadow: none;
+	padding: 20px 80px;
+	border: none;
+  border-radius: 20px;
+  color: white;
+	background-image: linear-gradient(to right, #b4e9bb,#9bdda4);
+}
+
+  .bottom-img
+{
+	margin-top: 150px;
+	width: 100%;
+}
+
+/*-------------------------main section----------------------*/
+#main
+{
+	padding-bottom: 120px;
+    /* padding-top: 150px; */
+    --background: #f2f4f6;
+    --foreground: #232946;
+    --primary: #f582ae;
+    --secondary: #00ebc7;
+    --spacing-s: 8px;
+    --spacing: 14px;
+    --spacing-m: 28px;
+    --box-height: 200px;
+}
+.main-container
+{
+    position: relative;
+    height: 500px;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: 'Work Sans', sans-serif;
+}
+h1 {
+  text-align: center;
+  display: block;
+  font-size: 30px;
+  font-weight: lighter;
+  letter-spacing: 2px;
+}
+h1 > span, h1 > button {
+  display: inline-block;
+  vertical-align: middle;
+}
+h1.outside {
+  position: absolute;
+  top: -100px;
+  right: 0;
+}
+a:link, a:visited {
+  color: inherit;
+  font-weight: bold;
+  transition: color 0.2s ease-in-out;
+}
+a:hover {
+  color: var(--primary);
+}
+section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: auto;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.box {
+  position: relative;
+  background: white;
+  padding: var(--spacing) var(--spacing-m);
+  width: 90vw;
+  max-width: 720px;
+  margin: 200px auto;
+  margin-bottom: 0;
+  height: var(--box-height);
+  border-radius: var(--spacing);
+  box-shadow: 0 30px 56px 6px rgba(0, 0, 0, 0.1);
+}
+
+.box.long {
+  padding: var(--spacing-m);
+  height: 100%;
+  background: transparent;
+  box-shadow: none;
+  margin-top: var(--spacing-m);
+  line-height: 1.4;
+}
+
+.album {
+  position: relative;
+  margin-right: var(--spacing-s);
+}
+.album.rotating {
+  animation: rotate infinite 15s linear;
+}
+@keyframes rotate {
+  from { transform: rotate(0) }
+  to   { transform: rotate(360deg) }
+}
+.album canvas {
+  background: white;
+  border: 10px solid white;
+  border-radius: var(--spacing);
+  border-radius: 50%;
+}
+
+.controls {
+  position: relative;
+  width: 100%;
+}
+
+button, .button {
+  display:block;
+  color: var(--foreground);
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out, transform 0.2s ease-in-out;
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  font-family: inherit;
+  font-size: inherit;
+}
+a.button:link, a.button:visited {
+  font-weight: normal;
+  text-decoration: none;
+}
+button.square {
+  border: 1px solid #00b398;
+  border-radius: 3px;
+  padding: var(--spacing-s) var(--spacing-m);
+  background: var(--secondary);
+  color: var(--foreground);
+  min-width: 100px;
+  transition: background 0.2s linear;
+  margin: var(--spacing-m) auto;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+button.square:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: var(--foreground);
+}
+
+button:hover {
+  color: var(--primary);
+}
+button svg, .button svg {
+  pointer-events: none;
+  fill: currentColor;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  vertical-align: middle;
+}
+button.active > svg.yes,
+button:not(.active) > svg.no {
+  display: block;
+}
+button:not(.active) > svg.yes,
+button.active > svg.no {
+  display: none;
+}
+button.active {
+  color: var(--secondary);
+}
+
+#btnShare svg {
+  height: 24px;
+  width: 24px;
+}
+
+/*
+ * Playlist.
+ */
+ .popup {
+  position: absolute;
+  background: white;
+  border-radius: var(--spacing);
+  height: 0;
+  right: 0;
+  top: calc(var(--box-height) - 20px);  /* this is the same as the height set in .box and spacing*/
+  left: 300px; /* width of canvas + a bit */
+  padding: var(--spacing-s) var(--spacing-m);
+  visibility: hidden;
+  transition: height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  z-index: -10;
+}
+.popup.showing {
+  z-index: 1;
+  height: 40vh;
+  visibility: visible;
+  transition: height 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  overflow: auto;
+}
+.popup.share.showing {
+  height: 200px;
+}
+.popup .content {
+  display: none;
+}
+.popup.showing .content {
+  display: block;
+}
+.popup ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.popup ul li {
+  padding: var(--spacing-s);
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--background);
+}
+.popup ul li.list-header {
+  text-transform: uppercase;
+  font-size: 12px;
+}
+.popup ul li svg {
+  width: 24px;
+  height: 24px;
+}
+.popup ul li:not(.list-header):hover {
+  background: var(--background);
+}
+.popup ul li > div:first-of-type {
+  flex: 3;
+}
+.popup ul li > div:not(:first-of-type) {
+  flex: 1;
+}
+
+/* progress */
+.progress {
+  width: 100%;
+}
+.current-time, .total-time {
+  font-size: 12px;
+}
+progress {
+  -webkit-appearance: none;
+  border: none;
+  box-shadow: none;
+  height: 4px;
+  width: 100%;
+}
+/* Background. */
+progress::-webkit-progress-bar {
+  background:var(--background);
+  border: none;
+  box-shadow: none;
+}
+/* Value. */
+progress::-webkit-progress-value {
+  border: none;
+  box-shadow: none;
+  background: var(--foreground);
+}
+
+  </style>
+
+
+
+  <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
+    
+    <div id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="index"><img src="static/images/melon-logo1.png"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="#lyrics">Demo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#team">Team</a>
+                <li class="nav-item" id="loginLabel">
+                  <a class="nav-link js-scroll-trigger" href="login" style="color:black">Login</a>
+                </li>
+                <li class="nav-item" id="registerLabel">
+                  <a class="nav-link js-scroll-trigger" href="register">Register</a>
+                </li>
+                <li class="nav-item" id="userLabel">
+                  <a class="nav-link js-scroll-trigger" href="user" >My Page - {{user}}</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+    </div>
+
+    <!----------------Banner section---------------->
+    <div id="banner">
+        <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+        <div class="promo-title">M E L O N
+          <!-- <img src="static/images/geo1.png" class="img-fluid"> -->
+            <p>Create music through AI fed with lyrics.</p>
+        </div>
+        
+        <!-- <a href="#lyrics"><img src="static/images/play.png" class="play-btn">TRY IT NOW</a> -->
+        
+        </div>
+        <div class="col-md-6 text-center">
+        <img src="static/images/geo1.png" class="img-fluid">
+        </div>
+        </div>
+        </div>
+        
+        <img src="static/images/waves.png" class="bottom-img">
+    </div>
+
+
+<!-- lyrics -->
+    <div id="lyrics">
+      <div class="lyrics-container" id="lyrics-container">
+          <textarea name="" id="" cols="43" rows="4" placeholder="Input your lyrics here..."></textarea>
+           <a href="#main" id="lyricsButton" class="btn btn-primary">GENERATE SONG</a>
+      <!-- <img src="static/images/play.png" class="play-btn"> -->
+          </div>
+          <!-- reg buttons -->
+      <div class="reg-buttons" id="reg-buttons" hidden>
+        <a href="register" class="btn btn-primary">Register</a>
+        <a href="login" class="btn btn-primary">Login</a>
+      </div>
+    </div>
+    </div>
+
+
+    <!-- main -->
+    <div id="main" hidden>
+        <div class="main-container">
+            
+    <section class="main">
+      <div class="box horizontal" >
+        <!-- <h1 class="outside">
+            Hey
+        </h1> -->
+
+        <div class="album canvas-container" id="canvas-container"></div>
+        <div class="vertical" style="width:100%">
+          <div class="horizontal">
+            <div class="song-title">&nbsp; Shall we play some music?</div>
+            <div class="total-time" id="total-time"></div>
+          </div>
+
+          <!-- <div class="vertical progress">
+            <progress></progress>
+            <div class="horizontal">
+              <div class="current-time">0:00</div>
+              <div class="total-time">0:00</div>
+            </div>
+          </div> -->
+
+          <div class="horizontal controls" id="player-control">
+
+            <button title="play/pause" id="btnPause" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <button title="play/pause" id="btnPlay" >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button title="share this song" id="btnShare">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
+              share
+            </button>
+          </div> 
+        </div>  
+        <div class="vertical popup playlist">
+          <div class="content"><ul></ul></div>
+        </div> 
+        <div class="vertical popup share">
+          <div class="content">
+            <a class="button twitter" target="_blank">
+              <svg class="twitter" xmlns="http://www.w3.org/2000/svg" id="Logo_FIXED" data-name="Logo — FIXED" viewBox="0 0 400 400"><defs><style>.cls-1{fill:none;}.cls-2{fill:currentColor;}</style></defs><rect class="cls-1" width="400" height="400"/><path class="cls-2" d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23"/></svg>
+              Share on Twitter
+            </a>
+            <a class="button fb" target="_blank">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" viewBox="-40 -40 400 400">
+                <path id="Blue_1_" d="M248.082,262.307c7.854,0,14.223-6.369,14.223-14.225V18.812  c0-7.857-6.368-14.224-14.223-14.224H18.812c-7.857,0-14.224,6.367-14.224,14.224v229.27c0,7.855,6.366,14.225,14.224,14.225  H248.082z"/>
+                <path id="f" fill="#FFFFFF" d="M182.409,262.307v-99.803h33.499l5.016-38.895h-38.515V98.777c0-11.261,3.127-18.935,19.275-18.935  l20.596-0.009V45.045c-3.562-0.474-15.788-1.533-30.012-1.533c-29.695,0-50.025,18.126-50.025,51.413v28.684h-33.585v38.895h33.585  v99.803H182.409z"/>
+              </svg>
+              Share on Facebook
+            </a>
+            <a href="static/song.wav" download="song.wav">
+              <button id="btnSave">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
+              Download Music
+              </button>
+            </a>
+          </div>
+        </div> 
+      </div> 
+    </section>
+        </div>
+    </div>
+
+<!---------------About US--------------->
+<div id="about">
+    <div class="container">
+    <h1 class="title text-center">♪ ABOUT</h1>
+    <div class="row">
+    <div class="col-md-6 about-us">
+    <p class="about-title">What we do</p>
+    <p>Melon will allow users to feed their original text into our lyrics-to-melody generative model reinforced by neural networks and create music. We want to help those intimidated by the difficulty of music-making have fun in generating original melodies and inspire those who are interested in writing songs to further explore their potential in producing quality music.</p>
+    </div>
+    <div class="col-md-6">
+    <img src="static/images/geo2.png" class="img-fluid">
+    </div>
+    </div>
+    </div>
+
+<!-----------------Services Section------------>
+<div id="services">
+    <div class="container text-center">
+    <h1 class="title">♪ STEPS TO GENERATE MUSIC</h1>
+    <div class="row text-center">
+    <div class="col-md-4 services">
+    <img src="static/images/message-icon.png" class="service-img">
+    <h4>UPLOAD TEXT</h4>
+    <p>The first step of geerating music is to upload your lyrics. Simply copy and paste in the following box and press upload button! Also, don't forget to choose aucostic or vocal!</p>
+    </div>
+    <div class="col-md-4 services">
+    <img src="static/images/music-icon.png" class="service-img">
+    <h4>AUDIBLE</h4>
+    <p>Listen to the music we generated for you! If you don't like it, try "switch" to change the tone to another one! We'll add genre feature in the feature and let you change it as well! </p>
+    </div>
+    <div class="col-md-4 services">
+    <img src="static/images/arrow-icon.png" class="service-img">
+    <h4>DOWNLOAD</h4>
+    <p>You can download the music we generated for you and play as many times as you like or add it to your background music! </p>
+    </div>
+    </div>
+        <button type="button"class="btn btn-primary">Future Plans</button>
+    </div>
+</div>
+
+<!-- team -->
+<div id="team" class="team">
+    <div class="container text-center">
+</br></br>
+      <div class="section-title">
+        <h1 class="title text-center">♪ TEAM</h1>
+
+      </div>
+
+      <div class="row">
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_dd.jpeg" alt="">
+            <h4>Ding Ding</h4>
+            <span>Tech Lead</span>
+            <p> "You only live once"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_tq.jpeg" alt="">
+            <h4>Tian Qin</h4>
+            <span>Frontend, Product Manager</span>
+            <p> "Responsibility, Influncing, Sustaining"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_jl.jpg" alt="">
+            <h4>Jingxian Li</h4>
+            <span>Frontend, Product Manager</span>
+            <p>
+               "If not you, who?"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_sc.jpeg" alt="">
+            <h4>Sihan Chen</h4>
+            <span>Deep Learning Scientist</span>
+            <p>
+              "Only toilet paper deals with more *** than I do"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_jc.jpg" alt="">
+            <h4>Jiaqi Chen</h4>
+            <span>Backend</span>
+            <p>
+              "Let things go"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_yz.jpg" alt="">
+            <h4>Yunzheng Zhao</h4>
+            <span>Backend, Frontend</span>
+            <p>
+              "Well done is better than well said"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member">
+            <img src="static/images/user_wh.jpg" alt="">
+            <h4>Wendeng Hu</h4>
+            <span>Backend</span>
+            <p>
+              "I came, I saw, I conquered"
+            </p>
+            <div class="social">
+              <a href=""><i class="icofont-twitter"></i></a>
+              <a href=""><i class="icofont-facebook"></i></a>
+              <a href=""><i class="icofont-instagram"></i></a>
+              <a href=""><i class="icofont-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+</br></br>
+
+    </div>
+
+</div>
+
+<!-------------------Social Media Section------------------------>
+<div id="social-media">
+    <div class="container text-center">
+      <h1 class="title text-center">♪ SHARE ON SOCIAL MEDIA</h1>
+        <div class="social-icons">
+        <a href="#"><img src="static/images/tiktok-icon.png"></a>
+        <a href="#"><img src="static/images/ins-icon.png"></a>
+        <a href="#" id="share-facebook-btn"><img src="static/images/fb-icon.png"></a>
+        <div class="fb-share-button" data-href="http://melon-app.eba-6mh3jyrq.us-west-2.elasticbeanstalk.com/" 
+        data-layout="button" data-size="large"><a target="_blank" href="http://melon-app.eba-6mh3jyrq.us-west-2.elasticbeanstalk.com/" class="fb-xfbml-parse-ignore"></a></div>
+        </div>
+</div>
+
+
+
+    <!-- wave -->
+    <div class="waves" hidden>
+      <svg viewbox="0 0 100 20">
+        <path opacity="0.5" d="M0 25V10C35.5 -10.5 61.5 6.5 100 10V25H0Z" fill="black"/>
+        <path d="M0 25V7C20 10.3333 38.3333 10.3333 55 7C71.6667 3.66667 86.6667 3.33333 100 6V25H0Z" fill="#FF0000" fill-opacity="0.5"/>
+      </svg>
+    </div>
+  </body>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.8.25/Tone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@magenta/music@^1.0.0/es6/core.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js" defer></script>
+  <!-- <script src="static/player-script.js"></script> -->
+
+<script>
+
+setTimeout(init, 200);
+
+var user = "{{ user | safe }}";
+console.log(user)
+if (user == "Anonymous") {
+  document.getElementById("userLabel").style.display = 'none';
+  document.getElementById("loginLabel").style.display = 'block';
+  document.getElementById("registerLabel").style.display = 'block';
+
+} else {
+  document.getElementById("loginLabel").style.display = 'none';
+  document.getElementById("registerLabel").style.display = 'none';
+  document.getElementById("userLabel").style.display = 'block';
+}
+
+function init() {
+  // document.getElementById("player-control").hidden = true;
+  document.getElementById('btnPlay').addEventListener('click', playAudio);
+  document.getElementById('btnPause').addEventListener('click', pauseAudio);
+  document.getElementById('lyricsButton').addEventListener('click', showPlayer);
+  document.getElementById('btnShare').addEventListener('click', toggleShare);
+  document.getElementById('btnPause').classList.remove('active');
+
+  document.querySelector('a.twitter').href =  'https://twitter.com/intent/tweet?hashtags=melon';
+  document.querySelector('a.fb').href = 'https://www.facebook.com/sharer/sharer.php?u=http://melon-app.eba-6mh3jyrq.us-west-2.elasticbeanstalk.com/';
+}
+
+
+function showPlayer(){
+    // document.getElementById("player-control").hidden = false;
+    document.getElementById("main").hidden = false;
+}
+
+var audio = new Audio();
+audio.src = 'static/song.wav';
+let progressInterval;
+
+
+function playAudio(){
+  audio.play();
+  // secondsElapsed = 0;
+  // clearInterval(progressInterval);
+  // progressInterval = setInterval(updateProgressBar, 1000);
+  document.getElementById('btnPause').disabled = false;
+  document.getElementById('btnPlay').disabled = true;
+  document.getElementById('btnPlay').classList.remove('active');
+  document.getElementById('btnPause').classList.add('active');
+
+  var duration = audio.duration;
+  const seconds = Math.round(duration);
+  const totalTime = formatSeconds(seconds);
+  document.getElementById('total-time').innerHTML = "Total time:" + totalTime;
+  // setupProgres();
+  toRegister();
+}
+
+function pauseAudio(){
+  audio.pause();
+  document.getElementById('btnPause').disabled = true;
+  document.getElementById('btnPlay').disabled = false;
+  document.getElementById('btnPlay').classList.add('active');
+  document.getElementById('btnPause').classList.remove('active');
+  // clearInterval(progressInterval);
+  // progressInterval = null;
+  // stopProgressBar();
+}
+
+function toRegister(){
+  var duration = audio.duration;
+  setTimeout(function(){   
+    document.getElementById('lyrics-container').hidden = true;
+    document.getElementById('reg-buttons').hidden = false;
+    document.getElementById('banner').scrollIntoView();
+  }, duration*1000);
+}
+
+function formatSeconds(s) {
+  s = Math.round(s);
+  return(s-(s%=60))/60+(9<s?':':':0')+s;
+}
+
+// function setupProgres(){
+//   var duration = audio.duration;
+//   const seconds = Math.round(duration);
+//   const totalTime = formatSeconds(seconds);
+//   document.querySelector('.total-time').textContent = totalTime;
+//   const progressBar = document.querySelector('progress');
+//   progressBar.max = seconds;
+//   progressBar.value = 0;
+//   updateProgressBar()
+// }
+
+// const progressBar = document.querySelector('progress');
+// const currentTime = document.querySelector('.current-time');
+
+// function updateProgressBar() {
+//   secondsElapsed++;
+//   progressBar.value = secondsElapsed;
+//   currentTime.textContent = formatSeconds(secondsElapsed);
+// }
+
+// function stopProgressBar() {
+//   progressBar.value = secondsElapsed;
+//   currentTime.textContent = formatSeconds(secondsElapsed);
+// }
+
+
+function toggleShare(event) {
+  event.target.classList.toggle('active');
+  document.querySelector('.share').classList.toggle('showing');
+}
+
+  document.getElementById('share-facebook-btn').onclick = function() {
+    FB.ui({
+        method: 'share',
+        hashtag: '#melon',
+        href: 'http://melon-app.eba-6mh3jyrq.us-west-2.elasticbeanstalk.com/',
+        picture: 'static/images/melon-logo1.png',
+    }, function(response){});
+}
+
+function setup() {
+  let myCanvas = createCanvas(300, 300);
+  myCanvas.parent('canvas-container');
+//   img = loadImage("assets/t3.png");
+
+  r = random(255);
+  g = random(255);
+  b = random(255);
+  fill(r, g, b, 127);
+  stroke(r, g, b);
+  rect(80, 120, 10, 10);
+  rect(90, 110, 10, 10);
+  rect(100, 120, 10, 10);
+  rect(70, 130, 10, 10);
+}
+
+function draw() {
+  background('white');
+
+  // image(img, 0, 0);
+  // imageMode(CENTER);
+
+  strokeWeight(1);
+  stroke(r, g, b);
+  fill(r, g, b, 127);
+  ellipse(150, 150, 300, 300);
+
+  // geometry
+  push();
+  translate(width * 0.8, height * 0.3);
+  rotate(frameCount / -100.0);
+  polygon(0, 0, 50, 7);
+  pop();
+
+  //circle
+  // push();
+  // translate(width * 0.1, height * 0.2);
+  // rotate(frameCount / 50.0);
+  // polygon(0, 0, 80, 20);
+  // pop();
+
+  //triangle
+  push();
+  translate(width * 0.2, height * 0.8);
+  rotate(frameCount / 200.0);
+  polygon(0, 0, 82, 3);
+  pop();
+
+  textSize(40);
+  fill('white');
+  text('M E L O N', 80, 180);
+}
+
+function polygon(x, y, radius, npoints) {
+  let angle = TWO_PI / npoints;
+  beginShape();
+  for (let a = 0; a < TWO_PI; a += angle) {
+    let sx = x + cos(a) * radius;
+    let sy = y + sin(a) * radius;
+    vertex(sx, sy);
+  }
+  endShape(CLOSE);
+}
+
+</script>
+
+  
+</html>

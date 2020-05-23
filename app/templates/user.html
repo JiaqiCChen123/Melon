@@ -1,0 +1,120 @@
+{% extends "bootstrap/base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+
+{% block title %}
+Melon - Register
+{% endblock %}
+
+{% block head %}
+	{% include 'ga.html' %}
+    {{super()}}
+    {% include 'style.html' %}
+    <!-- Compiled and minified CSS -->
+<!--     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"> -->
+    <!-- Compiled and minified JavaScript -->
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> -->
+    <!-- Material icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<style type="text/css">
+	  body {
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+
+ .recordings{
+ position:relative;
+ top: 13%;
+ }
+
+</style>
+{% endblock %}
+
+{% block navbar %}
+    {% include 'nav2.html' %}
+{% endblock %}
+
+{% block content %}
+
+	<div class="container container-fluid" style="margin-top: 50px">
+
+
+		<div class="container">
+		  <div class="row">
+		    <div class="col-md-4">
+		      
+		
+				<div class="card" style="width: 18rem;">
+				  <img class="card-img-top" src="{{ image_file }}" class="img-thumbnail" alt="Card image cap">
+				  <div class="card-body">
+				    <h5 class="card-title">User Profile</h5>
+				    <p class="card-text">
+				    {% if profile%}
+					<label>Gender: {{profile.gender}}</label><br>
+					<label>Age: {{profile.age}}</label><br>
+					<label>City: {{profile.city}}</label><br>
+					{% else%}
+					<label>You don't have any info.</label>
+					{% endif %}
+				    </p>
+						<div>
+							<a type="button" class="btn btn-outline-success" style="color:#64c97a;width: 200px;" href="/profile"><i class="material-icons right">face</i>Edit Profile</a>
+				  	</div>
+				</div>
+
+
+		     </div>
+			</div>
+
+		    <div class="col-md-8">
+		     <h3>Welcome back, {{user.username}} !</h3>
+		     	<br>
+					<a type="button" class="btn btn-success" style=" width: 200px;" href="/search"><i class="material-icons right">library_music</i>Generate Music</a>
+				<hr>
+				<br>
+		    	<div class="card" style="width: 45rem; height: 20rem;">
+		    		  <h5 class="card-header bg-success text-white">Your Recent 3 Melodies</h5>
+					<div class="melody-title">
+
+
+					</div>
+
+					  <div class="card-img-overlay" src="">
+					    <h5 class="card-title"></h5>
+					    <p class="card-text">
+							<div class="recordings">
+							{% if melody_filenames %}
+							{% for melody in melody_filenames %}
+						  <ul style="list-style-type:none">
+                          <li><audio controls><source src="static/music/{{melody}}.wav" type="audio/wav"></audio></li>
+					  </ul>
+							{% endfor %}
+							{% endif %}
+					  </div>
+						</p>
+					  </div>
+				</div>
+
+
+		    </div>
+		  </div>
+		</div>
+
+
+<!-- 		<div>
+			<h5 class="page-title">User Profile</h5>
+			<img src="{{ image_file }}"  class="img-thumbnail" alt="Cinque Terre" height=25%  width=25% align="right">
+			{% if profile%}
+			<label>Gender: {{profile.gender}}</label>
+			<label>Age: {{profile.age}}</label>
+			<label>City: {{profile.city}}</label>
+			{% else%}
+			<label>You don't have any info.</label>
+			{% endif %}
+		</div> -->
+		<hr>
+
+	 </div>
+{% endblock %}

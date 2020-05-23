@@ -1,21 +1,3 @@
-# 2020-product-analytics-group-project-melon
-Create music through AI fed with lyrics.
-
-
-### How to run it locally
-
-1. Create a environment of Python 3.6, and install the requirements.txt using `pip install -r requirements.txt`.
-
-2. Download required sources from: https://drive.google.com/file/d/1y4xlxM0drLdbFbOIsw6Fbh0XfRAPVqkX/view?usp=sharing
-
-3. Place the entire `data` folder under `app/Melon_Model`.
-
-4. `brew install fluidsynth` (if haven't)
-
-5. Run the web server!
-=======
-=======
->>>>>>> e5c41cf93b317b20b657e5ea4b003539c7ce8d69
 # Melon - Create music through AI fed with lyrics.
 
 ![](images/main.png)
@@ -30,17 +12,17 @@ We want to build a easy-to-use melody generation platform to help those intimida
 
 There are some basic tools in our website:
 
-1.  __Lyrics searching__
+### 1.  __Lyrics searching__
 
 ![](images/lyrics.png)
 
-2.  __Melody generation with lyrics__
+### 2.  __Melody generation with lyrics__
 
 Conditional GAN with LSTM
 
 ![](images/melody.png)
 
-3.  __Recording tools__
+### 3.  __Recording tools__
 
 ![](images/record.png)
 
